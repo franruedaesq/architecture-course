@@ -218,7 +218,71 @@ export default function Module5() {
         </div>
       </section>
 
-      {/* Lesson 4: Testing Strategy */}
+      {/* Lesson 4: Monitoring & Observability */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-white mb-4">Lesson 4: Monitoring & Observability - The Visibility Layer</h2>
+
+        <p className="text-slate-300 text-lg leading-relaxed mb-6">
+          With 10+ independently deployed services and micro-frontends, how do you know what's happening in production? You need comprehensive monitoring and observability.
+        </p>
+
+        <Card className="bg-slate-800/50 border-slate-700 mb-6">
+          <CardHeader>
+            <CardTitle className="text-white">The Three Pillars of Observability</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <h4 className="font-semibold text-blue-300 mb-2">1. Logs</h4>
+              <p className="text-slate-300 text-sm mb-2">Detailed records of what happened. Use centralized logging (ELK, Datadog, CloudWatch) to aggregate logs from all services.</p>
+              <p className="text-slate-300 text-xs text-slate-400"><span className="font-semibold">Example:</span> "User 123 clicked button at 2:45 PM, which triggered a request to the Review Service"</p>
+            </div>
+            <div className="border-t border-slate-700 pt-4">
+              <h4 className="font-semibold text-purple-300 mb-2">2. Metrics</h4>
+              <p className="text-slate-300 text-sm mb-2">Quantitative measurements. Response time, error rate, CPU usage, etc. Use Prometheus or similar to collect and visualize metrics.</p>
+              <p className="text-slate-300 text-xs text-slate-400"><span className="font-semibold">Example:</span> "The Review Service is responding in 500ms on average"</p>
+            </div>
+            <div className="border-t border-slate-700 pt-4">
+              <h4 className="font-semibold text-green-300 mb-2">3. Traces</h4>
+              <p className="text-slate-300 text-sm mb-2">End-to-end request flows. Follow a single user request as it travels through multiple services. Use distributed tracing (Jaeger, Zipkin).</p>
+              <p className="text-slate-300 text-xs text-slate-400"><span className="font-semibold">Example:</span> "User request → BFF (50ms) → Product Service (100ms) → Review Service (200ms) → Response (350ms total)"</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold text-blue-300 mb-4">Performance Budgets & SLOs</h3>
+          <p className="text-slate-300 mb-4">
+            Set explicit performance targets for each service and micro-frontend:
+          </p>
+          <div className="space-y-3 text-slate-300 text-sm">
+            <div>
+              <span className="font-semibold text-blue-300">SLO (Service Level Objective):</span> "The Product Service will respond in less than 200ms 99% of the time."
+            </div>
+            <div>
+              <span className="font-semibold text-purple-300">SLI (Service Level Indicator):</span> The actual measurement. "Last week, the Product Service responded in less than 200ms 98.5% of the time."
+            </div>
+            <div>
+              <span className="font-semibold text-green-300">Error Budget:</span> "If we have 99% uptime SLO, we can have 7.2 hours of downtime per year."
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-yellow-900/30 border border-yellow-700/50 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-yellow-300 mb-4">Incident Response Procedures</h3>
+          <p className="text-slate-300 mb-4">
+            When something breaks in production, you need a clear process:
+          </p>
+          <ol className="space-y-2 text-slate-300 text-sm list-decimal list-inside">
+            <li><span className="font-semibold">Detection:</span> Monitoring alerts the on-call engineer</li>
+            <li><span className="font-semibold">Triage:</span> Determine severity and which service is affected</li>
+            <li><span className="font-semibold">Mitigation:</span> Quick fix or rollback to restore service</li>
+            <li><span className="font-semibold">Communication:</span> Notify stakeholders and customers</li>
+            <li><span className="font-semibold">Post-Mortem:</span> Analyze root cause and prevent recurrence</li>
+          </ol>
+        </div>
+      </section>
+
+      {/* Lesson 5: Testing Strategy */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-white mb-4">Lesson 4: Testing Strategy - The Quality Gate</h2>
 
@@ -310,6 +374,68 @@ export default function Module5() {
         </Card>
       </section>
 
+      {/* Lesson 5: Team Communication & Governance */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-white mb-4">Lesson 5: Team Communication & Governance</h2>
+
+        <p className="text-slate-300 text-lg leading-relaxed mb-6">
+          With multiple teams owning different services and micro-frontends, communication and governance become critical. Without clear processes, chaos ensues.
+        </p>
+
+        <Card className="bg-slate-800/50 border-slate-700 mb-6">
+          <CardHeader>
+            <CardTitle className="text-white">Communication Patterns</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <h4 className="font-semibold text-blue-300 mb-2">API Contracts</h4>
+              <p className="text-slate-300 text-sm mb-2">Document the API contract between services. If the Product Service changes its API, the BFF must be updated. Use OpenAPI/Swagger for documentation.</p>
+            </div>
+            <div className="border-t border-slate-700 pt-4">
+              <h4 className="font-semibold text-purple-300 mb-2">Breaking Changes Policy</h4>
+              <p className="text-slate-300 text-sm mb-2">Establish clear rules for breaking changes. "All breaking changes must be announced 2 weeks in advance. Old API versions must be supported for 6 months."</p>
+            </div>
+            <div className="border-t border-slate-700 pt-4">
+              <h4 className="font-semibold text-green-300 mb-2">Dependency Management</h4>
+              <p className="text-slate-300 text-sm mb-2">Track which services depend on which. If you're planning a breaking change, you know exactly which teams to notify.</p>
+            </div>
+            <div className="border-t border-slate-700 pt-4">
+              <h4 className="font-semibold text-yellow-300 mb-2">Regular Sync Meetings</h4>
+              <p className="text-slate-300 text-sm mb-2">Weekly or bi-weekly meetings where all team leads discuss upcoming changes, blockers, and coordination needs.</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-blue-300 mb-4">Governance & Standards</h3>
+          <p className="text-slate-300 mb-4">
+            Without governance, each team will make different choices, leading to inconsistency and chaos:
+          </p>
+          <div className="space-y-3 text-slate-300">
+            <div className="flex gap-3">
+              <span className="text-blue-400 font-bold">→</span>
+              <span><span className="font-semibold">Technology Stack:</span> Decide which languages/frameworks are allowed. "We use Node.js for backends, React for frontends."</span>
+            </div>
+            <div className="flex gap-3">
+              <span className="text-blue-400 font-bold">→</span>
+              <span><span className="font-semibold">Code Quality:</span> Enforce linting, testing, and code review standards across all teams.</span>
+            </div>
+            <div className="flex gap-3">
+              <span className="text-blue-400 font-bold">→</span>
+              <span><span className="font-semibold">Naming Conventions:</span> Consistent naming for services, APIs, and databases. "Services are named {'{'}domain{'}'}-service, e.g., product-service."</span>
+            </div>
+            <div className="flex gap-3">
+              <span className="text-blue-400 font-bold">→</span>
+              <span><span className="font-semibold">Deployment Process:</span> All services follow the same CI/CD pipeline and deployment procedures.</span>
+            </div>
+            <div className="flex gap-3">
+              <span className="text-blue-400 font-bold">→</span>
+              <span><span className="font-semibold">Documentation:</span> Every service must have a README with setup, deployment, and troubleshooting instructions.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Final Takeaway */}
       <section className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-800/50 rounded-lg p-8 mb-12">
         <h2 className="text-2xl font-bold text-white mb-6">The Final Takeaway</h2>
@@ -337,8 +463,11 @@ export default function Module5() {
             <span>Developer Experience and team processes are as important as the technical architecture</span>
           </li>
         </ul>
-        <p className="text-slate-300 text-lg leading-relaxed">
+        <p className="text-slate-300 text-lg leading-relaxed mb-6">
           The goal is not to build the "perfect" architecture—it's to build the architecture that best serves your business goals, your team's capabilities, and your users' needs.
+        </p>
+        <p className="text-slate-300 text-lg leading-relaxed">
+          Modern web architecture is fundamentally about <span className="font-semibold">trade-offs</span>. Every choice you make—SSR vs CSR, server-side vs client-side composition, synchronous vs asynchronous communication—comes with benefits and costs. Understanding these trade-offs is what separates great architects from those who just follow trends.
         </p>
       </section>
 

@@ -62,9 +62,31 @@ export default function Module4() {
           </Card>
         </div>
 
-        <p className="text-slate-300 text-lg leading-relaxed">
+        <p className="text-slate-300 text-lg leading-relaxed mb-6">
           The <span className="font-semibold text-yellow-300">weird part</span> is that for a long time, you have <span className="italic">two</span> systems running in production: the old Monolith handling some routes (e.g., <code className="bg-slate-900 px-2 py-1 rounded text-sm">/admin</code>) and the new Micro-Frontends handling others (e.g., <code className="bg-slate-900 px-2 py-1 rounded text-sm">/product</code>). The BFF and a routing layer act as the traffic cop, directing users to the right place.
         </p>
+
+        {/* Rollback Strategies */}
+        <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-blue-300 mb-4">Rollback Strategies</h3>
+          <p className="text-slate-300 mb-4">
+            During migration, you need a quick way to rollback if something goes wrong:
+          </p>
+          <div className="space-y-3 text-slate-300">
+            <div>
+              <h4 className="font-semibold text-blue-300 mb-2">Feature Flags</h4>
+              <p className="text-sm">Use feature flags to control which system handles which routes. If the new system breaks, flip a flag to route traffic back to the monolith instantly.</p>
+            </div>
+            <div className="border-t border-blue-700/50 pt-3">
+              <h4 className="font-semibold text-purple-300 mb-2">Canary Deployments</h4>
+              <p className="text-sm">Route only 5% of traffic to the new system first. Monitor for errors. If all looks good, increase to 25%, then 50%, then 100%.</p>
+            </div>
+            <div className="border-t border-blue-700/50 pt-3">
+              <h4 className="font-semibold text-green-300 mb-2">Database Synchronization</h4>
+              <p className="text-sm">Keep the monolith database and new system databases in sync. If you need to rollback, you don't lose data.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Lesson 2: Code-Splitting */}
@@ -89,7 +111,7 @@ export default function Module4() {
           <CodeSplittingVisualization />
         </div>
 
-        <Card className="bg-slate-800/50 border-slate-700">
+        <Card className="bg-slate-800/50 border-slate-700 mb-6">
           <CardHeader>
             <CardTitle className="text-white">Code-Splitting Strategies</CardTitle>
           </CardHeader>
@@ -136,6 +158,20 @@ export default function Module4() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Performance Budgets */}
+        <div className="bg-yellow-900/30 border border-yellow-700/50 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-yellow-300 mb-4">Performance Budgets</h3>
+          <p className="text-slate-300 mb-4">
+            Set a budget for JavaScript bundle size. If a new feature would exceed the budget, you must code-split it or remove something else.
+          </p>
+          <div className="bg-slate-700/50 p-4 rounded text-sm text-slate-300 space-y-2">
+            <p><span className="font-semibold text-yellow-300">Example Budget:</span></p>
+            <p>• Initial bundle: 150 KB (gzipped)</p>
+            <p>• Per-route chunk: 50 KB (gzipped)</p>
+            <p>• Third-party libraries: 100 KB (gzipped)</p>
+          </div>
+        </div>
       </section>
 
       {/* Lesson 3: Module Federation */}
@@ -155,7 +191,7 @@ export default function Module4() {
           This is the <span className="font-semibold text-yellow-300">weirdest part</span> of the whole setup. It allows the Product Micro-Frontend to say, "Hey, Header Micro-Frontend, are you already using React version X? Great, I'll use your copy instead of downloading my own." It's the technical glue that makes Micro-Frontends efficient.
         </p>
 
-        <Card className="bg-slate-800/50 border-slate-700">
+        <Card className="bg-slate-800/50 border-slate-700 mb-6">
           <CardHeader>
             <CardTitle className="text-white">Module Federation Configuration (Webpack)</CardTitle>
           </CardHeader>
@@ -197,7 +233,7 @@ module.exports = {
           </CardContent>
         </Card>
 
-        <div className="bg-green-900/30 border border-green-700/50 rounded-lg p-6 mt-6">
+        <div className="bg-green-900/30 border border-green-700/50 rounded-lg p-6 mb-6">
           <h3 className="text-lg font-semibold text-green-300 mb-4">Module Federation Benefits</h3>
           <ul className="space-y-3 text-slate-300">
             <li className="flex gap-3">
@@ -218,17 +254,35 @@ module.exports = {
             </li>
           </ul>
         </div>
+
+        {/* Version Management */}
+        <div className="bg-red-900/30 border border-red-700/50 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-red-300 mb-4">⚠️ Version Management & Breaking Changes</h3>
+          <p className="text-slate-300 mb-4">
+            With Module Federation, you have multiple versions of the same library running at the same time. This can cause issues:
+          </p>
+          <div className="space-y-3 text-slate-300">
+            <div>
+              <h4 className="font-semibold text-red-300 mb-2">Breaking Changes</h4>
+              <p className="text-sm">If the Header Micro-Frontend updates React from 18 to 19, but the Product Micro-Frontend still expects React 18, you have a problem. Use semantic versioning and careful testing.</p>
+            </div>
+            <div className="border-t border-red-700/50 pt-3">
+              <h4 className="font-semibold text-orange-300 mb-2">Deprecation Policy</h4>
+              <p className="text-sm">Establish clear deprecation timelines. "React 18 will be deprecated in Q2 2025. All micro-frontends must upgrade by then."</p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Lesson 4: Composition & Stitching */}
+      {/* Lesson 4: Composition & Error Handling */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-white mb-4">Lesson 4: Composition & Stitching - The Final Picture</h2>
+        <h2 className="text-2xl font-bold text-white mb-4">Lesson 4: Composition, Error Handling & Shared State</h2>
 
         <p className="text-slate-300 text-lg leading-relaxed mb-6">
-          All the pieces (SSR, client-side, static) must be combined into one seamless page. This is the "stitching" process.
+          All the pieces (SSR, client-side, static) must be combined into one seamless page. This is the "stitching" process. But what happens when one piece fails?
         </p>
 
-        <Card className="bg-slate-800/50 border-slate-700">
+        <Card className="bg-slate-800/50 border-slate-700 mb-6">
           <CardHeader>
             <CardTitle className="text-white">Stitching Strategies</CardTitle>
           </CardHeader>
@@ -273,6 +327,72 @@ module.exports = {
             </div>
           </CardContent>
         </Card>
+
+        {/* Error Handling */}
+        <div className="bg-red-900/30 border border-red-700/50 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold text-red-300 mb-4">Error Handling in Composed Applications</h3>
+          <p className="text-slate-300 mb-4">
+            When a micro-frontend fails to load or crashes, what happens to the entire page?
+          </p>
+          <div className="space-y-4 text-slate-300">
+            <div>
+              <h4 className="font-semibold text-red-300 mb-2">Graceful Degradation</h4>
+              <p className="text-sm">If the Reviews Micro-Frontend fails, show a placeholder or skeleton loader instead of breaking the entire page.</p>
+            </div>
+            <div className="border-t border-red-700/50 pt-4">
+              <h4 className="font-semibold text-orange-300 mb-2">Error Boundaries</h4>
+              <p className="text-sm mb-2">Use React Error Boundaries to catch errors in a micro-frontend and prevent them from crashing the entire page.</p>
+              <pre className="bg-slate-900 p-2 rounded text-xs text-slate-300 font-mono overflow-x-auto">
+{`class MicroFrontendErrorBoundary extends React.Component {
+  componentDidCatch(error, errorInfo) {
+    console.error('MFE failed:', error);
+    // Show fallback UI
+  }
+  render() {
+    return this.props.children;
+  }
+}`}
+              </pre>
+            </div>
+            <div className="border-t border-red-700/50 pt-4">
+              <h4 className="font-semibold text-yellow-300 mb-2">Timeout Handling</h4>
+              <p className="text-sm">If a micro-frontend takes too long to load, show a timeout error instead of waiting forever.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Shared State Management */}
+        <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-blue-300 mb-4">Shared State Management Between Micro-Frontends</h3>
+          <p className="text-slate-300 mb-4">
+            Sometimes, micro-frontends need to share state (e.g., the user's shopping cart). How do you manage this without tight coupling?
+          </p>
+          <div className="space-y-4 text-slate-300">
+            <div>
+              <h4 className="font-semibold text-blue-300 mb-2">Option 1: Shared Store (Redux, Zustand)</h4>
+              <p className="text-sm mb-2">All micro-frontends share a single state store. Simple but creates tight coupling.</p>
+            </div>
+            <div className="border-t border-blue-700/50 pt-4">
+              <h4 className="font-semibold text-purple-300 mb-2">Option 2: Event-Driven Communication</h4>
+              <p className="text-sm mb-2">Micro-frontends communicate via events (e.g., "user-added-to-cart"). Loose coupling but harder to debug.</p>
+              <pre className="bg-slate-900 p-2 rounded text-xs text-slate-300 font-mono overflow-x-auto">
+{`// Product MFE
+window.dispatchEvent(new CustomEvent('cart:add', {
+  detail: { productId: 123, quantity: 1 }
+}));
+
+// Cart MFE
+window.addEventListener('cart:add', (e) => {
+  addToCart(e.detail);
+});`}
+              </pre>
+            </div>
+            <div className="border-t border-blue-700/50 pt-4">
+              <h4 className="font-semibold text-green-300 mb-2">Option 3: Shared Service Layer</h4>
+              <p className="text-sm">All micro-frontends call the same BFF API to fetch/update shared state. Clean separation of concerns.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Key Takeaways */}
@@ -285,6 +405,10 @@ module.exports = {
           </li>
           <li className="flex gap-3">
             <span className="text-blue-400 font-bold">→</span>
+            <span>Use feature flags and canary deployments for safe rollbacks during migration.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="text-blue-400 font-bold">→</span>
             <span>Code-Splitting reduces the JavaScript bundle size, improving Hydration performance.</span>
           </li>
           <li className="flex gap-3">
@@ -294,6 +418,14 @@ module.exports = {
           <li className="flex gap-3">
             <span className="text-blue-400 font-bold">→</span>
             <span>Composition can be done on the server, client, or edge, each with trade-offs.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="text-blue-400 font-bold">→</span>
+            <span>Use Error Boundaries and graceful degradation to handle micro-frontend failures.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="text-blue-400 font-bold">→</span>
+            <span>Manage shared state carefully—event-driven communication is often the best approach.</span>
           </li>
         </ul>
       </section>

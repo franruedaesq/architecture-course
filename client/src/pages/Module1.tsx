@@ -92,9 +92,95 @@ export default function Module1() {
           </ul>
         </div>
 
-        <p className="text-slate-300 text-lg leading-relaxed">
+        <p className="text-slate-300 text-lg leading-relaxed mb-6">
           The <span className="font-semibold text-yellow-300">weird part</span> is that now, to load a single product page, your frontend might need to talk to the Product Catalog, the User Service (for personalization), and the Review Service. That's three separate network calls! This complexity is where our next concept comes in.
         </p>
+
+        {/* Microservices Challenges */}
+        <div className="bg-red-900/30 border border-red-700/50 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold text-red-300 mb-4">⚠️ The Microservices Challenges</h3>
+          <p className="text-slate-300 mb-4">Before you jump into microservices, understand the real costs:</p>
+          <ul className="space-y-3 text-slate-300">
+            <li className="flex gap-3">
+              <span className="text-red-400 font-bold">⚠</span>
+              <span><span className="font-semibold">Network Complexity:</span> Services communicate over the network. Network calls are slow and can fail. A single page might require 10+ service calls, introducing latency and failure points.</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-red-400 font-bold">⚠</span>
+              <span><span className="font-semibold">Distributed Debugging:</span> A bug might span 3 services. Tracing a request through the system is exponentially harder than debugging a monolith.</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-red-400 font-bold">⚠</span>
+              <span><span className="font-semibold">Data Consistency:</span> Each service has its own database. Keeping data in sync across services is a nightmare (eventual consistency).</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-red-400 font-bold">⚠</span>
+              <span><span className="font-semibold">Operational Overhead:</span> You now have to deploy, monitor, and maintain 10+ services instead of 1. This requires mature DevOps practices.</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-red-400 font-bold">⚠</span>
+              <span><span className="font-semibold">Team Coordination:</span> 10 services = 10 teams. Communication and coordination become critical and time-consuming.</span>
+            </li>
+          </ul>
+        </div>
+
+        {/* When NOT to use Microservices */}
+        <div className="bg-yellow-900/30 border border-yellow-700/50 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold text-yellow-300 mb-4">When NOT to Use Microservices</h3>
+          <p className="text-slate-300 mb-4">Microservices are not a silver bullet. Consider staying with a monolith if:</p>
+          <ul className="space-y-2 text-slate-300 text-sm">
+            <li>• Your team is small (less than 10 people)</li>
+            <li>• Your application is simple and doesn't have clear domain boundaries</li>
+            <li>• You don't have the operational maturity (CI/CD, monitoring, logging, distributed tracing)</li>
+            <li>• Performance is not a critical concern</li>
+            <li>• Your data is highly interconnected and requires frequent ACID transactions</li>
+            <li>• You're building an MVP and need to move fast</li>
+          </ul>
+        </div>
+
+        {/* Service Communication Patterns */}
+        <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-white mb-4">Service Communication Patterns</h3>
+          <p className="text-slate-300 mb-4">Services need to talk to each other. There are two main patterns:</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-slate-700/50 p-4 rounded">
+              <h4 className="font-semibold text-blue-300 mb-2">Synchronous (Request-Response)</h4>
+              <p className="text-slate-300 text-sm mb-3">Service A calls Service B and waits for a response (HTTP/REST, gRPC).</p>
+              <div className="space-y-2 text-slate-300 text-xs">
+                <div className="flex gap-2">
+                  <span className="text-green-400">✓</span>
+                  <span>Simple to understand and debug</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="text-red-400">✗</span>
+                  <span>Slow if Service B is slow (cascading failures)</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="text-red-400">✗</span>
+                  <span>Tight coupling between services</span>
+                </div>
+              </div>
+            </div>
+            <div className="bg-slate-700/50 p-4 rounded">
+              <h4 className="font-semibold text-purple-300 mb-2">Asynchronous (Event-Driven)</h4>
+              <p className="text-slate-300 text-sm mb-3">Service A publishes an event to a message queue. Service B listens and reacts (RabbitMQ, Kafka).</p>
+              <div className="space-y-2 text-slate-300 text-xs">
+                <div className="flex gap-2">
+                  <span className="text-green-400">✓</span>
+                  <span>Loose coupling between services</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="text-green-400">✓</span>
+                  <span>Fast and scalable</span>
+                </div>
+                <div className="flex gap-2">
+                  <span className="text-red-400">✗</span>
+                  <span>Eventually consistent (harder to reason about)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Lesson 3: Backend for Frontend */}
@@ -188,6 +274,14 @@ export default function Module1() {
           <li className="flex gap-3">
             <span className="text-blue-400 font-bold">→</span>
             <span>The BFF aggregates data from multiple services and transforms it for a specific UI.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="text-blue-400 font-bold">→</span>
+            <span>Microservices are not a silver bullet—understand the challenges before adopting.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="text-blue-400 font-bold">→</span>
+            <span>Choose between synchronous (simple) and asynchronous (scalable) communication patterns.</span>
           </li>
         </ul>
       </section>
