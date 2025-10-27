@@ -124,6 +124,34 @@ export default function Module1() {
           </ul>
         </div>
 
+        {/* Advanced Concepts */}
+        <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold text-blue-300 mb-4">Advanced Concepts: Service Boundaries & Domain-Driven Design</h3>
+          <p className="text-slate-300 mb-4">
+            The key to successful microservices is defining clear service boundaries. This is where <span className="font-semibold">Domain-Driven Design (DDD)</span> comes in.
+          </p>
+          <div className="space-y-4 text-slate-300">
+            <div>
+              <h4 className="font-semibold text-blue-300 mb-2">Bounded Contexts</h4>
+              <p className="text-sm mb-2">
+                Each microservice is a "bounded context"—a specific business domain with its own language, rules, and database. The "Order Service" doesn't care about how the "Inventory Service" manages stock internally. They communicate through well-defined APIs.
+              </p>
+            </div>
+            <div className="border-t border-blue-700/50 pt-4">
+              <h4 className="font-semibold text-purple-300 mb-2">The CAP Theorem</h4>
+              <p className="text-sm mb-2">
+                In distributed systems, you can guarantee at most two of three properties:
+              </p>
+              <ul className="text-sm space-y-1 list-disc list-inside">
+                <li><span className="font-semibold">Consistency:</span> All nodes see the same data</li>
+                <li><span className="font-semibold">Availability:</span> The system is always responsive</li>
+                <li><span className="font-semibold">Partition Tolerance:</span> The system works even if network partitions occur</li>
+              </ul>
+              <p className="text-sm mt-2">Most microservices choose AP (Availability + Partition Tolerance) and accept eventual consistency.</p>
+            </div>
+          </div>
+        </div>
+
         {/* When NOT to use Microservices */}
         <div className="bg-yellow-900/30 border border-yellow-700/50 rounded-lg p-6 mb-6">
           <h3 className="text-lg font-semibold text-yellow-300 mb-4">When NOT to Use Microservices</h3>
@@ -139,7 +167,7 @@ export default function Module1() {
         </div>
 
         {/* Service Communication Patterns */}
-        <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+        <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 mb-6">
           <h3 className="text-lg font-semibold text-white mb-4">Service Communication Patterns</h3>
           <p className="text-slate-300 mb-4">Services need to talk to each other. There are two main patterns:</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -178,6 +206,37 @@ export default function Module1() {
                   <span>Eventually consistent (harder to reason about)</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Advanced Patterns */}
+        <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-white mb-4">Advanced Communication Patterns</h3>
+          <div className="space-y-4 text-slate-300">
+            <div>
+              <h4 className="font-semibold text-blue-300 mb-2">Circuit Breaker Pattern</h4>
+              <p className="text-sm mb-2">
+                If a service is failing, stop calling it immediately instead of waiting for timeouts. This prevents cascading failures.
+              </p>
+              <div className="bg-slate-900 p-3 rounded text-xs font-mono">
+                <div className="text-green-400">// Pseudo-code</div>
+                <div>if (failureRate {`>`} 50%) {`{`}</div>
+                <div className="ml-4">circuitBreaker.open(); // Stop calling the service</div>
+                <div>{`}`}</div>
+              </div>
+            </div>
+            <div className="border-t border-slate-700 pt-4">
+              <h4 className="font-semibold text-purple-300 mb-2">Service Discovery</h4>
+              <p className="text-sm">
+                In a microservices world, services are deployed and removed dynamically. Service discovery (Consul, Kubernetes DNS) automatically registers and discovers services so clients don't need hardcoded addresses.
+              </p>
+            </div>
+            <div className="border-t border-slate-700 pt-4">
+              <h4 className="font-semibold text-green-300 mb-2">API Gateway</h4>
+              <p className="text-sm">
+                A single entry point for all client requests. The API Gateway routes requests to the appropriate microservice, handles authentication, rate limiting, and request/response transformation.
+              </p>
             </div>
           </div>
         </div>
@@ -253,6 +312,121 @@ export default function Module1() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Real-World Case Study */}
+        <div className="bg-purple-900/30 border border-purple-700/50 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold text-purple-300 mb-4">Real-World Case Study: E-Commerce Product Page</h3>
+          <p className="text-slate-300 mb-4">
+            Let's trace a real request through a microservices architecture. A user visits <code className="bg-slate-900 px-2 py-1 rounded text-sm">amazon.com/dp/B0123456789</code>
+          </p>
+
+          <div className="bg-slate-900 p-4 rounded mb-4 text-sm text-slate-300 font-mono overflow-x-auto">
+            <div className="text-blue-300 mb-2">// Frontend Request</div>
+            <div>GET /api/product/B0123456789</div>
+            <div>Headers: {`{`}</div>
+            <div className="ml-4">Authorization: Bearer token_xyz</div>
+            <div className="ml-4">User-ID: user_12345</div>
+            <div>{`}`}</div>
+          </div>
+
+          <div className="space-y-3 text-slate-300 text-sm">
+            <div>
+              <h4 className="font-semibold text-blue-300 mb-2">Step 1: BFF Receives Request</h4>
+              <p>The BFF validates the token and extracts the user ID from the JWT.</p>
+            </div>
+            <div className="border-t border-purple-700/50 pt-3">
+              <h4 className="font-semibold text-purple-300 mb-2">Step 2: BFF Makes Parallel Requests</h4>
+              <p className="mb-2">The BFF doesn't wait for one service to respond before calling the next. It makes all requests in parallel:</p>
+              <div className="bg-slate-900 p-3 rounded text-xs font-mono">
+                <div className="text-green-400">// Parallel requests (not sequential!)</div>
+                <div className="text-slate-400">Promise.all([</div>
+                <div className="ml-4">productService.getProduct('B0123456789'),</div>
+                <div className="ml-4">reviewService.getReviews('B0123456789'),</div>
+                <div className="ml-4">inventoryService.getStock('B0123456789'),</div>
+                <div className="ml-4">userService.getPreferences('user_12345')</div>
+                <div className="text-slate-400">])</div>
+              </div>
+            </div>
+            <div className="border-t border-purple-700/50 pt-3">
+              <h4 className="font-semibold text-green-300 mb-2">Step 3: Services Respond</h4>
+              <p className="mb-2">Each service responds with its own data format:</p>
+              <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+                <div className="text-green-400">// Product Service Response (100ms)</div>
+                <div>{`{`}</div>
+                <div className="ml-4">"id": "B0123456789",</div>
+                <div className="ml-4">"name": "Premium Wireless Headphones",</div>
+                <div className="ml-4">"price": 199.99,</div>
+                <div className="ml-4">"description": "High-quality audio..."</div>
+                <div>{`}`}</div>
+              </div>
+              <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto mt-2">
+                <div className="text-green-400">// Reviews Service Response (150ms)</div>
+                <div>{`{`}</div>
+                <div className="ml-4">"productId": "B0123456789",</div>
+                <div className="ml-4">"averageRating": 4.5,</div>
+                <div className="ml-4">"totalReviews": 2847,</div>
+                <div className="ml-4">"reviews": [{`[...]`}]</div>
+                <div>{`}`}</div>
+              </div>
+            </div>
+            <div className="border-t border-purple-700/50 pt-3">
+              <h4 className="font-semibold text-yellow-300 mb-2">Step 4: BFF Aggregates (Total: ~150ms)</h4>
+              <p className="mb-2">The BFF waits for all responses (150ms is the slowest), then transforms and combines them:</p>
+              <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+                <div className="text-green-400">// BFF Response to Frontend</div>
+                <div>{`{`}</div>
+                <div className="ml-4">"product": {`{`}</div>
+                <div className="ml-8">"id": "B0123456789",</div>
+                <div className="ml-8">"name": "Premium Wireless Headphones",</div>
+                <div className="ml-8">"price": 199.99</div>
+                <div className="ml-4">{`}`},</div>
+                <div className="ml-4">"reviews": {`{`}</div>
+                <div className="ml-8">"rating": 4.5,</div>
+                <div className="ml-8">"count": 2847</div>
+                <div className="ml-4">{`}`},</div>
+                <div className="ml-4">"inventory": {`{`}</div>
+                <div className="ml-8">"inStock": true,</div>
+                <div className="ml-8">"quantity": 1250</div>
+                <div className="ml-4">{`}`},</div>
+                <div className="ml-4">"userPreferences": {`{`}</div>
+                <div className="ml-8">"currency": "USD",</div>
+                <div className="ml-8">"language": "en"</div>
+                <div className="ml-4">{`}`}</div>
+                <div>{`}`}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Performance Analysis */}
+        <div className="bg-orange-900/30 border border-orange-700/50 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-orange-300 mb-4">Performance Analysis: Sequential vs Parallel</h3>
+          <p className="text-slate-300 mb-4">
+            This is where the BFF design choice matters. Let's compare two approaches:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-slate-700/50 p-4 rounded">
+              <h4 className="font-semibold text-red-300 mb-2">❌ Sequential Calls (Bad)</h4>
+              <div className="text-slate-300 text-sm space-y-1 mb-3">
+                <div>Product Service: 100ms</div>
+                <div>Reviews Service: 150ms</div>
+                <div>Inventory Service: 80ms</div>
+                <div>User Service: 50ms</div>
+                <div className="border-t border-slate-600 pt-2 font-semibold">Total: 380ms</div>
+              </div>
+              <p className="text-xs text-slate-400">Waiting for each response before calling the next.</p>
+            </div>
+            <div className="bg-slate-700/50 p-4 rounded">
+              <h4 className="font-semibold text-green-300 mb-2">✓ Parallel Calls (Good)</h4>
+              <div className="text-slate-300 text-sm space-y-1 mb-3">
+                <div>All calls made simultaneously</div>
+                <div>Slowest response: 150ms (Reviews)</div>
+                <div className="border-t border-slate-600 pt-2 font-semibold">Total: 150ms</div>
+              </div>
+              <p className="text-xs text-slate-400">2.5x faster! This is the power of the BFF.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Key Takeaways */}
@@ -269,11 +443,19 @@ export default function Module1() {
           </li>
           <li className="flex gap-3">
             <span className="text-blue-400 font-bold">→</span>
+            <span>Domain-Driven Design and the CAP Theorem are foundational concepts for microservices.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="text-blue-400 font-bold">→</span>
             <span>The BFF is the mediator that hides microservice complexity from the frontend.</span>
           </li>
           <li className="flex gap-3">
             <span className="text-blue-400 font-bold">→</span>
             <span>The BFF aggregates data from multiple services and transforms it for a specific UI.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="text-blue-400 font-bold">→</span>
+            <span>Parallel requests in the BFF dramatically reduce latency compared to sequential calls.</span>
           </li>
           <li className="flex gap-3">
             <span className="text-blue-400 font-bold">→</span>
