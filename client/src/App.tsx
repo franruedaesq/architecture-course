@@ -20,6 +20,16 @@ import AdvancedCommunicationConcept from "./pages/concepts/AdvancedCommunication
 import BackendForFrontendConcept from "./pages/concepts/BackendForFrontend";
 import ServiceDiscoveryConcept from "./pages/concepts/ServiceDiscovery";
 import CircuitBreakerConcept from "./pages/concepts/CircuitBreaker";
+// Module 2 Concept pages
+import MicroFrontendsConcept from "./pages/concepts/MicroFrontends";
+import ServerSideRenderingConcept from "./pages/concepts/ServerSideRendering";
+import ReactFiberConcept from "./pages/concepts/ReactFiber";
+import HydrationConcept from "./pages/concepts/Hydration";
+import IslandsArchitectureConcept from "./pages/concepts/IslandsArchitecture";
+import VirtualDOMConcept from "./pages/concepts/VirtualDOM";
+import StreamingRenderingConcept from "./pages/concepts/StreamingRendering";
+import ComponentCompositionConcept from "./pages/concepts/ComponentComposition";
+import PerformanceOptimizationConcept from "./pages/concepts/PerformanceOptimization";
 
 function Router() {
   return (
@@ -40,6 +50,16 @@ function Router() {
       <Route path={"/concepts/backend-for-frontend"} component={BackendForFrontendConcept} />
       <Route path={"/concepts/service-discovery"} component={ServiceDiscoveryConcept} />
       <Route path={"/concepts/circuit-breaker"} component={CircuitBreakerConcept} />
+      {/* Module 2 Concept pages */}
+      <Route path={"/concepts/micro-frontends"} component={MicroFrontendsConcept} />
+      <Route path={"/concepts/server-side-rendering"} component={ServerSideRenderingConcept} />
+      <Route path={"/concepts/react-fiber"} component={ReactFiberConcept} />
+      <Route path={"/concepts/hydration"} component={HydrationConcept} />
+      <Route path={"/concepts/islands-architecture"} component={IslandsArchitectureConcept} />
+      <Route path={"/concepts/virtual-dom"} component={VirtualDOMConcept} />
+      <Route path={"/concepts/streaming-rendering"} component={StreamingRenderingConcept} />
+      <Route path={"/concepts/component-composition"} component={ComponentCompositionConcept} />
+      <Route path={"/concepts/performance-optimization"} component={PerformanceOptimizationConcept} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

@@ -409,6 +409,87 @@ export default function Module2() {
         </ul>
       </section>
 
+      {/* Deep-Dive Concept Pages */}
+      <section className="mb-12">
+        <h3 className="text-2xl font-bold text-white mb-8">Explore Deeper: Concept Deep-Dives</h3>
+        <p className="text-slate-300 text-lg leading-relaxed mb-8">
+          Want to understand these concepts at university level? Explore our comprehensive concept pages:
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <Link href="/concepts/micro-frontends">
+            <a className="group">
+              <div className="bg-gradient-to-br from-blue-900/40 to-blue-800/40 border border-blue-700/50 rounded-lg p-6 hover:border-blue-600/80 hover:from-blue-900/60 hover:to-blue-800/60 transition-all">
+                <h4 className="text-lg font-bold text-blue-300 group-hover:text-blue-200 mb-2">Micro-Frontends</h4>
+                <p className="text-slate-400 text-sm">Architecture, composition patterns, challenges, and real-world implementations</p>
+              </div>
+            </a>
+          </Link>
+          <Link href="/concepts/server-side-rendering">
+            <a className="group">
+              <div className="bg-gradient-to-br from-purple-900/40 to-purple-800/40 border border-purple-700/50 rounded-lg p-6 hover:border-purple-600/80 hover:from-purple-900/60 hover:to-purple-800/60 transition-all">
+                <h4 className="text-lg font-bold text-purple-300 group-hover:text-purple-200 mb-2">Server-Side Rendering</h4>
+                <p className="text-slate-400 text-sm">Why SSR matters, implementation strategies, and performance trade-offs</p>
+              </div>
+            </a>
+          </Link>
+          <Link href="/concepts/react-fiber">
+            <a className="group">
+              <div className="bg-gradient-to-br from-green-900/40 to-green-800/40 border border-green-700/50 rounded-lg p-6 hover:border-green-600/80 hover:from-green-900/60 hover:to-green-800/60 transition-all">
+                <h4 className="text-lg font-bold text-green-300 group-hover:text-green-200 mb-2">React Fiber</h4>
+                <p className="text-slate-400 text-sm">Reconciliation algorithm, DOM concepts, and rendering optimization</p>
+              </div>
+            </a>
+          </Link>
+          <Link href="/concepts/hydration">
+            <a className="group">
+              <div className="bg-gradient-to-br from-yellow-900/40 to-yellow-800/40 border border-yellow-700/50 rounded-lg p-6 hover:border-yellow-600/80 hover:from-yellow-900/60 hover:to-yellow-800/60 transition-all">
+                <h4 className="text-lg font-bold text-yellow-300 group-hover:text-yellow-200 mb-2">Hydration</h4>
+                <p className="text-slate-400 text-sm">The hydration process, challenges, selective hydration, and debugging</p>
+              </div>
+            </a>
+          </Link>
+          <Link href="/concepts/islands-architecture">
+            <a className="group">
+              <div className="bg-gradient-to-br from-pink-900/40 to-pink-800/40 border border-pink-700/50 rounded-lg p-6 hover:border-pink-600/80 hover:from-pink-900/60 hover:to-pink-800/60 transition-all">
+                <h4 className="text-lg font-bold text-pink-300 group-hover:text-pink-200 mb-2">Islands Architecture</h4>
+                <p className="text-slate-400 text-sm">Modern approach to web architecture combining static HTML with interactive components</p>
+              </div>
+            </a>
+          </Link>
+          <Link href="/concepts/virtual-dom">
+            <a className="group">
+              <div className="bg-gradient-to-br from-indigo-900/40 to-indigo-800/40 border border-indigo-700/50 rounded-lg p-6 hover:border-indigo-600/80 hover:from-indigo-900/60 hover:to-indigo-800/60 transition-all">
+                <h4 className="text-lg font-bold text-indigo-300 group-hover:text-indigo-200 mb-2">Virtual DOM</h4>
+                <p className="text-slate-400 text-sm">In-memory representation, diffing algorithm, and performance implications</p>
+              </div>
+            </a>
+          </Link>
+          <Link href="/concepts/streaming-rendering">
+            <a className="group">
+              <div className="bg-gradient-to-br from-cyan-900/40 to-cyan-800/40 border border-cyan-700/50 rounded-lg p-6 hover:border-cyan-600/80 hover:from-cyan-900/60 hover:to-cyan-800/60 transition-all">
+                <h4 className="text-lg font-bold text-cyan-300 group-hover:text-cyan-200 mb-2">Streaming Rendering</h4>
+                <p className="text-slate-400 text-sm">Progressive HTML delivery, Suspense, and modern streaming APIs</p>
+              </div>
+            </a>
+          </Link>
+          <Link href="/concepts/component-composition">
+            <a className="group">
+              <div className="bg-gradient-to-br from-orange-900/40 to-orange-800/40 border border-orange-700/50 rounded-lg p-6 hover:border-orange-600/80 hover:from-orange-900/60 hover:to-orange-800/60 transition-all">
+                <h4 className="text-lg font-bold text-orange-300 group-hover:text-orange-200 mb-2">Component Composition</h4>
+                <p className="text-slate-400 text-sm">Composition patterns, Module Federation, and best practices</p>
+              </div>
+            </a>
+          </Link>
+          <Link href="/concepts/performance-optimization">
+            <a className="group">
+              <div className="bg-gradient-to-br from-red-900/40 to-red-800/40 border border-red-700/50 rounded-lg p-6 hover:border-red-600/80 hover:from-red-900/60 hover:to-red-800/60 transition-all">
+                <h4 className="text-lg font-bold text-red-300 group-hover:text-red-200 mb-2">Performance Optimization</h4>
+                <p className="text-slate-400 text-sm">Code splitting, caching, image optimization, and performance budgets</p>
+              </div>
+            </a>
+          </Link>
+        </div>
+      </section>
       {/* Navigation */}
       <div className="flex justify-between items-center">
         <div></div>
