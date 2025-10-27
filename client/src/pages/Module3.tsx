@@ -12,93 +12,227 @@ export default function Module3() {
       moduleNumber={3}
       title="Measuring Success"
       subtitle="Web Performance & Technical SEO"
-      description="Deep dive into Core Web Vitals, Technical SEO, and the metrics that matter for modern web applications."
+      description="Deep dive into Core Web Vitals, the metrics that matter, and how architecture decisions impact performance."
       previousModule={2}
       nextModule={4}
     >
       {/* Lesson 1: Core Web Vitals */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-white mb-4">Lesson 1: Core Web Vitals - The Performance Scorecard</h2>
+        <h2 className="text-2xl font-bold text-white mb-4">Lesson 1: Core Web Vitals - The Holy Trinity</h2>
 
         <p className="text-slate-300 text-lg leading-relaxed mb-6">
-          In the Monolith days, "fast" meant "it loaded quickly." Today, "fast" is a complex, measurable science defined by Google's <span className="font-semibold">Core Web Vitals (CWV)</span>. Our micro-architecture directly impacts these three metrics.
+          Google has decided that three metrics matter most for user experience. These are the <span className="font-semibold text-blue-300">Core Web Vitals</span>. If your site performs poorly on these, Google will rank you lower. Period.
         </p>
 
-        <WebVitalsComparison />
+        <BigWordAlert
+          term="Core Web Vitals"
+          definition="Three key metrics that Google uses to measure user experience: Largest Contentful Paint (LCP) for loading performance, First Input Delay (FID) for interactivity, and Cumulative Layout Shift (CLS) for visual stability."
+        />
 
-        <Card className="bg-slate-800/50 border-slate-700 mt-6 mb-6">
-          <CardHeader>
-            <CardTitle className="text-white">The Core Web Vitals in Detail</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div>
-              <h4 className="font-semibold text-blue-300 mb-2">LCP (Largest Contentful Paint)</h4>
-              <p className="text-slate-300 text-sm mb-3">
-                Measures when the main content of the page has loaded. This is the metric that users perceive as "the page is ready." Target: Less than 2.5 seconds.
-              </p>
-              <div className="bg-slate-700/50 p-3 rounded text-sm text-slate-300">
-                <span className="font-semibold text-green-300">✓ How SSR Helps:</span> Sending a fully-formed HTML page means the browser can paint the main content much faster than waiting for JavaScript to run.
-              </div>
-            </div>
-
-            <div className="border-t border-slate-700 pt-6">
-              <h4 className="font-semibold text-red-300 mb-2">FID/INP (First Input Delay / Interaction to Next Paint)</h4>
-              <p className="text-slate-300 text-sm mb-3">
-                The responsiveness of the page to user input. How long does the page take to respond when the user clicks a button? Target: Less than 200ms (FID) or 200ms (INP).
-              </p>
-              <div className="bg-slate-700/50 p-3 rounded text-sm text-slate-300">
-                <span className="font-semibold text-red-300">✗ How Hydration Hurts:</span> While the browser is busy "waking up" the page, it can't respond to clicks, leading to a poor FID/INP score.
-              </div>
-            </div>
-
-            <div className="border-t border-slate-700 pt-6">
-              <h4 className="font-semibold text-yellow-300 mb-2">CLS (Cumulative Layout Shift)</h4>
-              <p className="text-slate-300 text-sm mb-3">
-                How much the content unexpectedly shifts around. A good user experience means the page is stable and predictable. Target: Less than 0.1.
-              </p>
-              <div className="bg-slate-700/50 p-3 rounded text-sm text-slate-300">
-                <span className="font-semibold text-yellow-300">⚠ How Micro-Frontends Can Hurt:</span> If the different pieces (header, product, reviews) load at different times and "stitch" together, the page will jump, causing a bad user experience and a poor CLS score.
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <div className="bg-yellow-900/30 border border-yellow-700/50 rounded-lg p-6 mb-6">
-          <h3 className="text-lg font-semibold text-yellow-300 mb-4">The Tension</h3>
-          <p className="text-slate-300">
-            The <span className="font-semibold">weird part</span> is the tension between LCP (improved by SSR) and FID/INP (hurt by Hydration). Our whole architecture is a balancing act between these two. We're trying to make the page <span className="italic">look</span> fast while also making it <span className="italic">feel</span> responsive.
-          </p>
+        <div className="my-8">
+          <WebVitalsComparison />
         </div>
 
-        {/* Tools & Measurement */}
-        <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-blue-300 mb-4">Tools & Measurement</h3>
-          <p className="text-slate-300 mb-4">How do you actually measure these metrics? Here are the tools:</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-slate-700/50 p-4 rounded">
-              <h4 className="font-semibold text-blue-300 mb-2">Google Lighthouse</h4>
-              <p className="text-slate-300 text-sm mb-3">A free tool that audits your page and gives you a performance score (0-100). Run it in Chrome DevTools or at web.dev/measure.</p>
-              <p className="text-slate-300 text-xs"><span className="font-semibold">Shows:</span> LCP, FID, CLS, and recommendations for improvement</p>
-            </div>
-            <div className="bg-slate-700/50 p-4 rounded">
-              <h4 className="font-semibold text-purple-300 mb-2">Web Vitals API</h4>
-              <p className="text-slate-300 text-sm mb-3">JavaScript API to measure Core Web Vitals in real user sessions (Real User Monitoring).</p>
-              <pre className="bg-slate-900 p-2 rounded text-xs text-slate-300 font-mono overflow-x-auto">
-{`import {getCLS, getFID, getFCP, getLCP, getTTFB} from 'web-vitals';
+        {/* LCP Deep Dive */}
+        <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold text-blue-300 mb-4">Largest Contentful Paint (LCP) - The Speed Metric</h3>
+          <p className="text-slate-300 mb-4">
+            <span className="font-semibold">LCP</span> measures when the largest visible element on the page finishes rendering. This could be a hero image, a large text block, or a video.
+          </p>
+          
+          <div className="bg-slate-700/50 p-4 rounded mb-4">
+            <p className="text-slate-300 font-semibold mb-2">Good LCP: &lt; 2.5 seconds</p>
+            <p className="text-slate-300 font-semibold mb-2">Poor LCP: &gt; 4 seconds</p>
+          </div>
 
-getCLS(console.log);
-getLCP(console.log);`}
-              </pre>
+          <p className="text-slate-300 mb-4">
+            The <span className="font-semibold text-yellow-300">weird part</span>: LCP changes as the page loads. If a large image loads after 3 seconds, LCP becomes 3 seconds. If a larger image loads after 4 seconds, LCP becomes 4 seconds. LCP is the <span className="italic">last</span> large element to load.
+          </p>
+
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 mb-4">
+            <h4 className="text-lg font-semibold text-white mb-4">LCP Optimization Strategies</h4>
+            <div className="space-y-4 text-slate-300">
+              <div>
+                <h5 className="font-semibold text-blue-300 mb-2">1. Optimize the Critical Rendering Path</h5>
+                <p className="text-sm mb-2">Reduce the time it takes to download and parse CSS and JavaScript before rendering starts.</p>
+                <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+                  <div className="text-green-400">// Bad: Render-blocking CSS</div>
+                  <div>&lt;link rel="stylesheet" href="styles.css"&gt;</div>
+                  <div className="mt-2 text-green-400">// Good: Preload critical CSS</div>
+                  <div>&lt;link rel="preload" href="critical.css" as="style"&gt;</div>
+                  <div>&lt;link rel="stylesheet" href="critical.css"&gt;</div>
+                </div>
+              </div>
+              <div className="border-t border-slate-700 pt-4">
+                <h5 className="font-semibold text-purple-300 mb-2">2. Lazy Load Below-the-Fold Images</h5>
+                <p className="text-sm mb-2">Don't load images the user can't see yet. Use the Intersection Observer API.</p>
+                <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+                  <div className="text-green-400">// Lazy load images</div>
+                  <div>&lt;img src="placeholder.jpg" data-src="real.jpg" loading="lazy" /&gt;</div>
+                  <div className="mt-2 text-slate-400">// Browser automatically defers loading</div>
+                </div>
+              </div>
+              <div className="border-t border-slate-700 pt-4">
+                <h5 className="font-semibold text-green-300 mb-2">3. Server-Side Rendering (SSR)</h5>
+                <p className="text-sm">Send HTML with the largest content already rendered. No waiting for JavaScript to build the page.</p>
+              </div>
+              <div className="border-t border-slate-700 pt-4">
+                <h5 className="font-semibold text-yellow-300 mb-2">4. Use a CDN for Static Assets</h5>
+                <p className="text-sm">Serve images and CSS from servers geographically close to users. Reduces latency significantly.</p>
+              </div>
             </div>
-            <div className="bg-slate-700/50 p-4 rounded">
-              <h4 className="font-semibold text-green-300 mb-2">Chrome DevTools</h4>
-              <p className="text-slate-300 text-sm mb-3">Built-in performance profiler. Use the Performance tab to record and analyze page load.</p>
-              <p className="text-slate-300 text-xs"><span className="font-semibold">Shows:</span> Frame rate, JavaScript execution time, layout shifts</p>
+          </div>
+
+          <div className="bg-indigo-900/30 border border-indigo-700/50 rounded-lg p-4">
+            <h4 className="font-semibold text-indigo-300 mb-2">Real-World Example: Amazon Product Page</h4>
+            <div className="space-y-2 text-slate-300 text-sm">
+              <div><span className="font-semibold">Without optimization:</span> LCP = 3.8 seconds</div>
+              <div><span className="font-semibold">With SSR:</span> LCP = 1.2 seconds (hero image server-rendered)</div>
+              <div><span className="font-semibold">With CDN:</span> LCP = 0.8 seconds (images served from edge)</div>
+              <div className="mt-2 pt-2 border-t border-indigo-700/50"><span className="font-semibold text-green-400">Result:</span> 4.75x faster LCP</div>
             </div>
-            <div className="bg-slate-700/50 p-4 rounded">
-              <h4 className="font-semibold text-orange-300 mb-2">Google Search Console</h4>
-              <p className="text-slate-300 text-sm mb-3">Shows real Core Web Vitals data from actual users visiting your site.</p>
-              <p className="text-slate-300 text-xs"><span className="font-semibold">Shows:</span> Real user metrics, not synthetic lab data</p>
+          </div>
+        </div>
+
+        {/* FID/INP Deep Dive */}
+        <div className="bg-purple-900/30 border border-purple-700/50 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold text-purple-300 mb-4">First Input Delay (FID) & Interaction to Next Paint (INP) - The Responsiveness Metrics</h3>
+          <p className="text-slate-300 mb-4">
+            <span className="font-semibold">FID</span> measures the delay between when a user first interacts with the page (clicks a button, types in a field) and when the browser responds. <span className="font-semibold">INP</span> is the newer, more comprehensive metric that measures all interactions.
+          </p>
+          
+          <div className="bg-slate-700/50 p-4 rounded mb-4">
+            <p className="text-slate-300 font-semibold mb-2">Good FID/INP: &lt; 100ms</p>
+            <p className="text-slate-300 font-semibold mb-2">Poor FID/INP: &gt; 500ms</p>
+          </div>
+
+          <p className="text-slate-300 mb-4">
+            The <span className="font-semibold text-yellow-300">weird part</span>: The browser can't respond to user input while it's busy running JavaScript. If hydration is taking 2 seconds, and the user clicks a button at 1.5 seconds, they have to wait 0.5 seconds for the browser to finish hydration before it can respond. This is the <span className="font-semibold">Total Blocking Time (TBT)</span>.
+          </p>
+
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 mb-4">
+            <h4 className="text-lg font-semibold text-white mb-4">FID/INP Optimization Strategies</h4>
+            <div className="space-y-4 text-slate-300">
+              <div>
+                <h5 className="font-semibold text-blue-300 mb-2">1. Break Up Long Tasks (Main Thread)</h5>
+                <p className="text-sm mb-2">Instead of running 5 seconds of JavaScript in one go, break it into 50ms chunks. This allows the browser to respond to user input between chunks.</p>
+                <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+                  <div className="text-green-400">// Bad: Long task blocks main thread</div>
+                  <div>for (let i = 0; i &lt; 1000000; i++) {`{`}</div>
+                  <div className="ml-4">expensiveCalculation();</div>
+                  <div>{`}`}</div>
+                  <div className="mt-2 text-green-400">// Good: Break into chunks</div>
+                  <div>function processInChunks(items, chunkSize = 100) {`{`}</div>
+                  <div className="ml-4">let index = 0;</div>
+                  <div className="ml-4">function processChunk() {`{`}</div>
+                  <div className="ml-8">for (let i = 0; i &lt; chunkSize && index &lt; items.length; i++) {`{`}</div>
+                  <div className="ml-12">expensiveCalculation(items[index++]);</div>
+                  <div className="ml-8">{`}`}</div>
+                  <div className="ml-8">if (index &lt; items.length) {`{`}</div>
+                  <div className="ml-12">setTimeout(processChunk, 0);</div>
+                  <div className="ml-8">{`}`}</div>
+                  <div className="ml-4">{`}`}</div>
+                  <div className="ml-4">processChunk();</div>
+                  <div>{`}`}</div>
+                </div>
+              </div>
+              <div className="border-t border-slate-700 pt-4">
+                <h5 className="font-semibold text-purple-300 mb-2">2. Code-Splitting & Lazy Loading</h5>
+                <p className="text-sm">Only load JavaScript for features the user needs right now. (More in Module 4)</p>
+              </div>
+              <div className="border-t border-slate-700 pt-4">
+                <h5 className="font-semibold text-green-300 mb-2">3. Web Workers for Heavy Computation</h5>
+                <p className="text-sm mb-2">Move expensive calculations off the main thread into a Web Worker.</p>
+                <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+                  <div className="text-green-400">// main.js</div>
+                  <div>const worker = new Worker('heavy-task.js');</div>
+                  <div>worker.postMessage({`{data: largeDataset}`});</div>
+                  <div>worker.onmessage = (e) =&gt; {`{`}</div>
+                  <div className="ml-4">console.log('Result:', e.data);</div>
+                  <div>{`}`};</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-indigo-900/30 border border-indigo-700/50 rounded-lg p-4">
+            <h4 className="font-semibold text-indigo-300 mb-2">Real-World Example: Netflix Hydration Blocking</h4>
+            <div className="space-y-2 text-slate-300 text-sm">
+              <div><span className="font-semibold">Hydration time:</span> 2.3 seconds</div>
+              <div><span className="font-semibold">User clicks play button at:</span> 1.5 seconds</div>
+              <div><span className="font-semibold">Browser responds at:</span> 2.3 seconds (after hydration)</div>
+              <div><span className="font-semibold">FID:</span> 800ms (POOR!)</div>
+              <div className="mt-2 pt-2 border-t border-indigo-700/50"><span className="font-semibold text-green-400">Solution:</span> Progressive hydration (hydrate play button first)</div>
+              <div><span className="font-semibold text-green-400">Result:</span> FID = 50ms (GOOD!)</div>
+            </div>
+          </div>
+        </div>
+
+        {/* CLS Deep Dive */}
+        <div className="bg-red-900/30 border border-red-700/50 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold text-red-300 mb-4">Cumulative Layout Shift (CLS) - The Stability Metric</h3>
+          <p className="text-slate-300 mb-4">
+            <span className="font-semibold">CLS</span> measures how much the page layout shifts unexpectedly as it loads. If you're reading an article and suddenly an ad loads and pushes the text down, that's a layout shift.
+          </p>
+          
+          <div className="bg-slate-700/50 p-4 rounded mb-4">
+            <p className="text-slate-300 font-semibold mb-2">Good CLS: &lt; 0.1</p>
+            <p className="text-slate-300 font-semibold mb-2">Poor CLS: &gt; 0.25</p>
+          </div>
+
+          <p className="text-slate-300 mb-4">
+            CLS is calculated as the sum of all unexpected layout shifts. A shift of 0.1 means 10% of the viewport moved unexpectedly.
+          </p>
+
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 mb-4">
+            <h4 className="text-lg font-semibold text-white mb-4">Common CLS Culprits & Prevention</h4>
+            <div className="space-y-4 text-slate-300">
+              <div>
+                <h5 className="font-semibold text-red-300 mb-2">Problem: Images Without Dimensions</h5>
+                <p className="text-sm mb-2">The browser doesn't know how much space to reserve for the image, so it renders at 0x0 initially, then shifts when the image loads.</p>
+                <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+                  <div className="text-red-400">// Bad: No dimensions</div>
+                  <div>&lt;img src="hero.jpg" /&gt;</div>
+                  <div className="mt-2 text-green-400">// Good: Explicit dimensions</div>
+                  <div>&lt;img src="hero.jpg" width="1200" height="600" /&gt;</div>
+                  <div className="mt-2 text-green-400">// Even better: Aspect ratio</div>
+                  <div>&lt;img src="hero.jpg" width="1200" height="600" style="aspect-ratio: 2/1" /&gt;</div>
+                </div>
+              </div>
+              <div className="border-t border-slate-700 pt-4">
+                <h5 className="font-semibold text-red-300 mb-2">Problem: Ads & Dynamic Content</h5>
+                <p className="text-sm mb-2">Ads load after the page, pushing content down. Reserve space for ads even if they're not loaded yet.</p>
+                <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+                  <div className="text-red-400">// Bad: Ad appears and shifts content</div>
+                  <div>&lt;div id="ad-container"&gt;&lt;/div&gt;</div>
+                  <div className="mt-2 text-green-400">// Good: Reserve space</div>
+                  <div>&lt;div id="ad-container" style="height: 250px"&gt;&lt;/div&gt;</div>
+                </div>
+              </div>
+              <div className="border-t border-slate-700 pt-4">
+                <h5 className="font-semibold text-red-300 mb-2">Problem: Fonts Causing FOUT/FOIT</h5>
+                <p className="text-sm mb-2">Custom fonts load and change text size, causing layout shifts. Use font-display: swap to show fallback font immediately.</p>
+                <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+                  <div className="text-green-400">@font-face {`{`}</div>
+                  <div className="ml-4">font-family: 'CustomFont';</div>
+                  <div className="ml-4">src: url('font.woff2') format('woff2');</div>
+                  <div className="ml-4">font-display: swap;</div>
+                  <div>{`}`}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-indigo-900/30 border border-indigo-700/50 rounded-lg p-4">
+            <h4 className="font-semibold text-indigo-300 mb-2">Real-World Example: Medium Article Page</h4>
+            <div className="space-y-2 text-slate-300 text-sm">
+              <div><span className="font-semibold">Initial CLS:</span> 0.35 (POOR)</div>
+              <div><span className="font-semibold">Issues:</span> Images without dimensions, ads loading, font swap</div>
+              <div className="mt-2 pt-2 border-t border-indigo-700/50"><span className="font-semibold text-green-400">Fixes applied:</span></div>
+              <div className="ml-4">• Added width/height to all images: -0.15</div>
+              <div className="ml-4">• Reserved space for ads: -0.10</div>
+              <div className="ml-4">• Used font-display: swap: -0.05</div>
+              <div className="mt-2 pt-2 border-t border-indigo-700/50"><span className="font-semibold text-green-400">Final CLS:</span> 0.05 (GOOD!)</div>
             </div>
           </div>
         </div>
@@ -106,261 +240,194 @@ getLCP(console.log);`}
 
       {/* Lesson 2: Technical SEO */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-white mb-4">Lesson 2: Technical SEO - The Business Driver</h2>
+        <h2 className="text-2xl font-bold text-white mb-4">Lesson 2: Technical SEO - Making Search Engines Happy</h2>
 
         <p className="text-slate-300 text-lg leading-relaxed mb-6">
-          Why did we go through all the trouble of SSR? For many companies, the answer is <span className="font-semibold text-blue-300">Technical SEO</span>. If Google can't read your page, you don't exist in search results.
+          Google crawls your website to understand what it's about. If your website is a Client-Side Rendered (CSR) Single Page App (SPA), Google sees an empty page with just a &lt;div id="root"&gt;&lt;/div&gt; and no content.
         </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white text-lg">The Old Way (CSR)</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3 text-slate-300 text-sm">
-              <p>Google had to:</p>
-              <ol className="list-decimal list-inside space-y-1">
-                <li>Download your JavaScript</li>
-                <li>Run it in a headless browser</li>
-                <li>Wait for the page to render</li>
-              </ol>
-              <div className="bg-red-900/30 border border-red-700/50 rounded p-3 mt-4">
-                <p className="font-semibold text-red-300">Result: Slow, unreliable, often failed</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white text-lg">The New Way (SSR)</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3 text-slate-300 text-sm">
-              <p>Google gets:</p>
-              <ol className="list-decimal list-inside space-y-1">
-                <li>A complete HTML page</li>
-                <li>Ready to read immediately</li>
-                <li>All content visible</li>
-              </ol>
-              <div className="bg-green-900/30 border border-green-700/50 rounded p-3 mt-4">
-                <p className="font-semibold text-green-300">Result: Fast, reliable, crawlable</p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
 
         <BigWordAlert
-          term="Structured Data (JSON-LD)"
-          definition="A standardized format (often JSON) that you embed in your HTML to explicitly tell search engines what your content means—not just what it says. For example, 'This is a Product,' 'This is a Review,' 'This is the Price.'"
+          term="Technical SEO"
+          definition="The practice of optimizing your website's technical aspects (site speed, mobile-friendliness, structured data, crawlability) to help search engines understand and rank your content."
         />
 
-        <p className="text-slate-300 text-lg leading-relaxed mb-6 mt-6">
-          But with Micro-Frontends, the content is scattered across multiple independent applications. We need to tell Google how to put it all together.
-        </p>
-
-        <Card className="bg-slate-800/50 border-slate-700 mb-6">
-          <CardHeader>
-            <CardTitle className="text-white">JSON-LD Example: Product Page</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <pre className="bg-slate-900 p-4 rounded overflow-x-auto text-xs text-slate-300 font-mono">
-{`{
-  "@context": "https://schema.org/",
-  "@type": "Product",
-  "name": "Wireless Headphones",
-  "description": "High-quality wireless headphones",
-  "image": "https://example.com/headphones.jpg",
-  "brand": {
-    "@type": "Brand",
-    "name": "AudioBrand"
-  },
-  "offers": {
-    "@type": "Offer",
-    "url": "https://example.com/product/123",
-    "priceCurrency": "USD",
-    "price": "99.99"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.5",
-    "reviewCount": "89"
-  }
-}`}
-            </pre>
-          </CardContent>
-        </Card>
-
-        <p className="text-slate-300 text-lg leading-relaxed mb-6">
-          The <span className="font-semibold text-yellow-300">weird part</span> is that the BFF now has to collect product data from the Product Service, review data from the Review Service, and then <span className="italic">combine</span> them into a single, comprehensive JSON-LD object to make a perfect SEO package for Google.
-        </p>
-
-        {/* Canonical Tags & Duplicate Content */}
-        <div className="bg-red-900/30 border border-red-700/50 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-red-300 mb-4">Canonical Tags & Duplicate Content</h3>
-          <p className="text-slate-300 mb-4">
-            With Micro-Frontends, the same content might be accessible via different URLs. Google will penalize you for duplicate content unless you tell it which is the "canonical" (original) version.
-          </p>
-          <pre className="bg-slate-900 p-4 rounded text-xs text-slate-300 font-mono overflow-x-auto mb-4">
-{`<!-- Use this on every page to tell Google which is the original -->\n<link rel="canonical" href="https://example.com/product/123" />`}
-          </pre>
-          <p className="text-slate-300 text-sm">
-            The BFF should automatically add the correct canonical tag based on the current URL to prevent duplicate content penalties.
-          </p>
-        </div>
-      </section>
-
-      {/* Lesson 3: Metadata Management & CLS Examples */}
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold text-white mb-4">Lesson 3: Metadata Management & CLS Prevention</h2>
-
-        <p className="text-slate-300 text-lg leading-relaxed mb-6">
-          Every page needs the correct <code className="bg-slate-900 px-2 py-1 rounded text-sm">&lt;title&gt;</code> and <code className="bg-slate-900 px-2 py-1 rounded text-sm">&lt;meta&gt;</code> tags for SEO and social sharing.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white text-base">Meta Tags for SEO</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2 text-slate-300 text-sm font-mono">
-              <div className="bg-slate-900 p-2 rounded">
-                <span className="text-blue-400">&lt;title&gt;</span>Wireless Headphones | AudioBrand<span className="text-blue-400">&lt;/title&gt;</span>
-              </div>
-              <div className="bg-slate-900 p-2 rounded">
-                <span className="text-blue-400">&lt;meta</span> name="description" content="..." <span className="text-blue-400">/&gt;</span>
-              </div>
-              <div className="bg-slate-900 p-2 rounded">
-                <span className="text-blue-400">&lt;meta</span> name="keywords" content="..." <span className="text-blue-400">/&gt;</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white text-base">Meta Tags for Social Sharing</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2 text-slate-300 text-sm font-mono">
-              <div className="bg-slate-900 p-2 rounded">
-                <span className="text-blue-400">&lt;meta</span> property="og:title" content="..." <span className="text-blue-400">/&gt;</span>
-              </div>
-              <div className="bg-slate-900 p-2 rounded">
-                <span className="text-blue-400">&lt;meta</span> property="og:image" content="..." <span className="text-blue-400">/&gt;</span>
-              </div>
-              <div className="bg-slate-900 p-2 rounded">
-                <span className="text-blue-400">&lt;meta</span> property="og:description" content="..." <span className="text-blue-400">/&gt;</span>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <p className="text-slate-300 text-lg leading-relaxed mb-6">
-          The BFF is the perfect place to manage these tags because it has access to all the data from the microservices and can render the correct HTML with the correct metadata before sending it to the browser.
-        </p>
-
-        {/* CLS Prevention */}
-        <div className="bg-yellow-900/30 border border-yellow-700/50 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-yellow-300 mb-4">Preventing Cumulative Layout Shift (CLS)</h3>
-          <p className="text-slate-300 mb-4">
-            CLS is caused by content unexpectedly moving around. With Micro-Frontends, this is a major issue. Here's how to prevent it:
-          </p>
+        <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold text-blue-300 mb-4">Why SSR Matters for SEO</h3>
           <div className="space-y-4 text-slate-300">
             <div>
-              <h4 className="font-semibold text-yellow-300 mb-2">Bad Example: Loading Images Without Size</h4>
-              <pre className="bg-slate-900 p-3 rounded text-xs text-slate-300 font-mono overflow-x-auto mb-2">
-{`<!-- Bad: Image loads, pushes content down -->\n<img src="product.jpg" />`}
-              </pre>
-              <p className="text-sm">The image loads, and suddenly the text below shifts down. CLS penalty!</p>
+              <h4 className="font-semibold text-blue-300 mb-2">CSR Problem</h4>
+              <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+                <div className="text-red-400">// What Google sees with CSR</div>
+                <div>&lt;!DOCTYPE html&gt;</div>
+                <div>&lt;html&gt;</div>
+                <div className="ml-4">&lt;head&gt;&lt;title&gt;Product Page&lt;/title&gt;&lt;/head&gt;</div>
+                <div className="ml-4">&lt;body&gt;</div>
+                <div className="ml-8">&lt;div id="root"&gt;&lt;/div&gt;</div>
+                <div className="ml-4">&lt;/body&gt;</div>
+                <div>&lt;/html&gt;</div>
+                <div className="mt-2 text-red-400">// No content! Google can't understand the page</div>
+              </div>
             </div>
-            <div className="border-t border-yellow-700/50 pt-4">
-              <h4 className="font-semibold text-green-300 mb-2">Good Example: Reserve Space with aspect-ratio</h4>
-              <pre className="bg-slate-900 p-3 rounded text-xs text-slate-300 font-mono overflow-x-auto mb-2">
-{`<!-- Good: Reserve space before image loads -->\n<img src="product.jpg" width="400" height="300" />\n<!-- Or use CSS: -->\n<div style="aspect-ratio: 4/3">\n  <img src="product.jpg" />\n</div>`}
-              </pre>
-              <p className="text-sm">The space is reserved, so when the image loads, nothing shifts. No CLS penalty!</p>
+            <div className="border-t border-blue-700/50 pt-4">
+              <h4 className="font-semibold text-green-300 mb-2">SSR Solution</h4>
+              <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+                <div className="text-green-400">// What Google sees with SSR</div>
+                <div>&lt;!DOCTYPE html&gt;</div>
+                <div>&lt;html&gt;</div>
+                <div className="ml-4">&lt;head&gt;</div>
+                <div className="ml-8">&lt;title&gt;Premium Wireless Headphones - $199.99&lt;/title&gt;</div>
+                <div className="ml-8">&lt;meta name="description" content="High-quality audio..."&gt;</div>
+                <div className="ml-4">&lt;/head&gt;</div>
+                <div className="ml-4">&lt;body&gt;</div>
+                <div className="ml-8">&lt;h1&gt;Premium Wireless Headphones&lt;/h1&gt;</div>
+                <div className="ml-8">&lt;p&gt;Price: $199.99&lt;/p&gt;</div>
+                <div className="ml-8">&lt;p&gt;Rating: 4.5/5 stars&lt;/p&gt;</div>
+                <div className="ml-4">&lt;/body&gt;</div>
+                <div>&lt;/html&gt;</div>
+                <div className="mt-2 text-green-400">// Full content! Google understands everything</div>
+              </div>
             </div>
-            <div className="border-t border-yellow-700/50 pt-4">
-              <h4 className="font-semibold text-blue-300 mb-2">For Micro-Frontends</h4>
-              <p className="text-sm">Always reserve space for dynamically loaded components (reviews, recommendations, ads). Use skeleton loaders or placeholders to prevent layout shifts.</p>
-            </div>
+          </div>
+        </div>
+
+        <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold text-white mb-4">Structured Data (Schema.org)</h3>
+          <p className="text-slate-300 mb-4">
+            Use JSON-LD to tell search engines exactly what your content is. This enables rich snippets in search results.
+          </p>
+          <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+            <div className="text-green-400">// Product structured data</div>
+            <div>&lt;script type="application/ld+json"&gt;</div>
+            <div>{`{`}</div>
+            <div className="ml-4">"@context": "https://schema.org/",</div>
+            <div className="ml-4">"@type": "Product",</div>
+            <div className="ml-4">"name": "Premium Wireless Headphones",</div>
+            <div className="ml-4">"image": "https://example.com/photo.jpg",</div>
+            <div className="ml-4">"description": "High-quality audio...",</div>
+            <div className="ml-4">"brand": {`{`}</div>
+            <div className="ml-8">"@type": "Brand",</div>
+            <div className="ml-8">"name": "AudioBrand"</div>
+            <div className="ml-4">{`}`},</div>
+            <div className="ml-4">"offers": {`{`}</div>
+            <div className="ml-8">"@type": "Offer",</div>
+            <div className="ml-8">"price": "199.99",</div>
+            <div className="ml-8">"priceCurrency": "USD"</div>
+            <div className="ml-4">{`}`},</div>
+            <div className="ml-4">"aggregateRating": {`{`}</div>
+            <div className="ml-8">"@type": "AggregateRating",</div>
+            <div className="ml-8">"ratingValue": "4.5",</div>
+            <div className="ml-8">"reviewCount": "2847"</div>
+            <div className="ml-4">{`}`}</div>
+            <div>{`}`}</div>
+            <div>&lt;/script&gt;</div>
+          </div>
+        </div>
+
+        <div className="bg-purple-900/30 border border-purple-700/50 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-purple-300 mb-4">Core Web Vitals & SEO Ranking</h3>
+          <p className="text-slate-300 mb-4">
+            Google officially uses Core Web Vitals as a ranking factor. Websites with poor Core Web Vitals are ranked lower.
+          </p>
+          <div className="space-y-2 text-slate-300 text-sm">
+            <div><span className="font-semibold">LCP &gt; 4s:</span> Significant ranking penalty</div>
+            <div><span className="font-semibold">FID &gt; 300ms:</span> Ranking penalty</div>
+            <div><span className="font-semibold">CLS &gt; 0.25:</span> Ranking penalty</div>
+            <div className="mt-4 pt-4 border-t border-purple-700/50"><span className="font-semibold text-green-400">Result:</span> Good Core Web Vitals = better search rankings</div>
           </div>
         </div>
       </section>
 
-      {/* Optimization Strategies */}
+      {/* Lesson 3: Performance Monitoring */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-white mb-4">Optimization Strategies by Metric</h2>
+        <h2 className="text-2xl font-bold text-white mb-4">Lesson 3: Performance Monitoring in Production</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white text-base">Improve LCP</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2 text-slate-300 text-sm">
-              <div className="flex gap-2">
-                <span className="text-green-400 font-bold">→</span>
-                <span>Use SSR to send HTML faster</span>
-              </div>
-              <div className="flex gap-2">
-                <span className="text-green-400 font-bold">→</span>
-                <span>Optimize image sizes</span>
-              </div>
-              <div className="flex gap-2">
-                <span className="text-green-400 font-bold">→</span>
-                <span>Minimize CSS/JS blocking</span>
-              </div>
-              <div className="flex gap-2">
-                <span className="text-green-400 font-bold">→</span>
-                <span>Use CDN for static assets</span>
-              </div>
-            </CardContent>
-          </Card>
+        <p className="text-slate-300 text-lg leading-relaxed mb-6">
+          You can't optimize what you don't measure. You need to monitor your Core Web Vitals in production, with real users, on real devices, with real network conditions.
+        </p>
 
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white text-base">Improve INP</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2 text-slate-300 text-sm">
-              <div className="flex gap-2">
-                <span className="text-green-400 font-bold">→</span>
-                <span>Code-split JavaScript</span>
-              </div>
-              <div className="flex gap-2">
-                <span className="text-green-400 font-bold">→</span>
-                <span>Progressive hydration</span>
-              </div>
-              <div className="flex gap-2">
-                <span className="text-green-400 font-bold">→</span>
-                <span>Defer non-critical JS</span>
-              </div>
-              <div className="flex gap-2">
-                <span className="text-green-400 font-bold">→</span>
-                <span>Use Web Workers for heavy tasks</span>
-              </div>
-            </CardContent>
-          </Card>
+        <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold text-white mb-4">Web Vitals API</h3>
+          <p className="text-slate-300 mb-4">
+            Use the Web Vitals API to measure Core Web Vitals in your application and send the data to your analytics backend.
+          </p>
+          <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+            <div className="text-green-400">// Measure Core Web Vitals</div>
+            <div>import {`{`} getCLS, getFID, getFCP, getLCP, getTTFB {`}`} from 'web-vitals';</div>
+            <div className="mt-2">getCLS(metric =&gt; {`{`}</div>
+            <div className="ml-4">console.log('CLS:', metric.value);</div>
+            <div className="ml-4">sendToAnalytics('CLS', metric.value);</div>
+            <div>{`}`});</div>
+            <div className="mt-2">getLCP(metric =&gt; {`{`}</div>
+            <div className="ml-4">console.log('LCP:', metric.value);</div>
+            <div className="ml-4">sendToAnalytics('LCP', metric.value);</div>
+            <div>{`}`});</div>
+            <div className="mt-2">getFID(metric =&gt; {`{`}</div>
+            <div className="ml-4">console.log('FID:', metric.value);</div>
+            <div className="ml-4">sendToAnalytics('FID', metric.value);</div>
+            <div>{`}`});</div>
+          </div>
+        </div>
 
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white text-base">Improve CLS</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2 text-slate-300 text-sm">
-              <div className="flex gap-2">
-                <span className="text-green-400 font-bold">→</span>
-                <span>Reserve space for images</span>
+        <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold text-white mb-4">Performance Profiling Tools</h3>
+          <div className="space-y-4 text-slate-300">
+            <div>
+              <h4 className="font-semibold text-blue-300 mb-2">Chrome DevTools Performance Tab</h4>
+              <p className="text-sm">Record a page load and see exactly where time is spent. Identify render-blocking resources, long tasks, and layout shifts.</p>
+            </div>
+            <div className="border-t border-slate-700 pt-4">
+              <h4 className="font-semibold text-purple-300 mb-2">React Profiler</h4>
+              <p className="text-sm mb-2">Measure which React components are slow to render.</p>
+              <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+                <div className="text-green-400">// Wrap components with Profiler</div>
+                <div>&lt;Profiler id="ProductCard" onRender={`{onRenderCallback}`}&gt;</div>
+                <div className="ml-4">&lt;ProductCard /&gt;</div>
+                <div>&lt;/Profiler&gt;</div>
               </div>
-              <div className="flex gap-2">
-                <span className="text-green-400 font-bold">→</span>
-                <span>Use skeleton loaders</span>
-              </div>
-              <div className="flex gap-2">
-                <span className="text-green-400 font-bold">→</span>
-                <span>Avoid dynamic content injection</span>
-              </div>
-              <div className="flex gap-2">
-                <span className="text-green-400 font-bold">→</span>
-                <span>Stitch MFEs server-side</span>
-              </div>
-            </CardContent>
-          </Card>
+            </div>
+            <div className="border-t border-slate-700 pt-4">
+              <h4 className="font-semibold text-green-300 mb-2">Lighthouse</h4>
+              <p className="text-sm">Automated audits that measure performance, accessibility, SEO, and best practices. Available in Chrome DevTools.</p>
+            </div>
+            <div className="border-t border-slate-700 pt-4">
+              <h4 className="font-semibold text-yellow-300 mb-2">WebPageTest</h4>
+              <p className="text-sm">Detailed performance analysis with real devices and network conditions. Waterfall charts show exactly what's slow.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-indigo-900/30 border border-indigo-700/50 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-indigo-300 mb-4">Real-World Case Study: Airbnb Performance Optimization</h3>
+          <div className="space-y-3 text-slate-300 text-sm">
+            <div>
+              <h4 className="font-semibold text-blue-300 mb-2">Initial Metrics</h4>
+              <div className="ml-4">LCP: 4.2s | FID: 280ms | CLS: 0.18</div>
+            </div>
+            <div className="border-t border-indigo-700/50 pt-3">
+              <h4 className="font-semibold text-purple-300 mb-2">Identified Issues</h4>
+              <ul className="space-y-1 list-disc list-inside ml-4">
+                <li>Large hero image not optimized</li>
+                <li>Hydration blocking user interactions</li>
+                <li>Fonts causing layout shifts</li>
+              </ul>
+            </div>
+            <div className="border-t border-indigo-700/50 pt-3">
+              <h4 className="font-semibold text-green-300 mb-2">Optimizations Applied</h4>
+              <ul className="space-y-1 list-disc list-inside ml-4">
+                <li>Served WebP images with fallbacks</li>
+                <li>Implemented progressive hydration</li>
+                <li>Used font-display: swap</li>
+              </ul>
+            </div>
+            <div className="border-t border-indigo-700/50 pt-3">
+              <h4 className="font-semibold text-green-400 mb-2">Final Metrics</h4>
+              <div className="ml-4">LCP: 1.8s (-57%) | FID: 85ms (-70%) | CLS: 0.05 (-72%)</div>
+            </div>
+            <div className="border-t border-indigo-700/50 pt-3">
+              <h4 className="font-semibold text-green-400 mb-2">Business Impact</h4>
+              <div className="ml-4">Conversion rate increased by 8%</div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -370,27 +437,35 @@ getLCP(console.log);`}
         <ul className="space-y-3 text-slate-300">
           <li className="flex gap-3">
             <span className="text-blue-400 font-bold">→</span>
-            <span>Core Web Vitals (LCP, FID/INP, CLS) are the metrics that matter for user experience and SEO.</span>
+            <span>Core Web Vitals (LCP, FID/INP, CLS) are Google's official ranking factors.</span>
           </li>
           <li className="flex gap-3">
             <span className="text-blue-400 font-bold">→</span>
-            <span>SSR improves LCP but Hydration hurts FID/INP—it's a trade-off we must optimize.</span>
+            <span>LCP measures loading speed; optimize with SSR, CDN, and lazy loading.</span>
           </li>
           <li className="flex gap-3">
             <span className="text-blue-400 font-bold">→</span>
-            <span>Use Lighthouse, Web Vitals API, and Chrome DevTools to measure performance.</span>
+            <span>FID/INP measures interactivity; optimize by breaking up long tasks and code-splitting.</span>
           </li>
           <li className="flex gap-3">
             <span className="text-blue-400 font-bold">→</span>
-            <span>Technical SEO is a primary business driver for using SSR and the BFF architecture.</span>
+            <span>CLS measures visual stability; prevent with explicit dimensions and reserved ad space.</span>
           </li>
           <li className="flex gap-3">
             <span className="text-blue-400 font-bold">→</span>
-            <span>Structured Data (JSON-LD) and Metadata Management must be handled by the BFF.</span>
+            <span>SSR is critical for both performance and SEO.</span>
           </li>
           <li className="flex gap-3">
             <span className="text-blue-400 font-bold">→</span>
-            <span>Prevent CLS by reserving space for dynamic content and using skeleton loaders.</span>
+            <span>Use structured data (JSON-LD) to help search engines understand your content.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="text-blue-400 font-bold">→</span>
+            <span>Monitor performance in production with the Web Vitals API and real user data.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="text-blue-400 font-bold">→</span>
+            <span>Use Chrome DevTools, Lighthouse, and WebPageTest to identify bottlenecks.</span>
           </li>
         </ul>
       </section>

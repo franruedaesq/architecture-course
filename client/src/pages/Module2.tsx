@@ -64,7 +64,7 @@ export default function Module2() {
         </p>
       </section>
 
-      {/* Lesson 2: Server-Side Rendering */}
+      {/* Lesson 2: Server-Side Rendering Deep Dive */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-white mb-4">Lesson 2: Server-Side Rendering (SSR) - The Speed Trick</h2>
 
@@ -135,9 +135,39 @@ export default function Module2() {
             </li>
           </ul>
         </div>
+
+        {/* React Internals */}
+        <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold text-blue-300 mb-4">Advanced Concept: React Fiber Architecture & Reconciliation</h3>
+          <p className="text-slate-300 mb-4">
+            To understand SSR deeply, you need to understand how React renders. React uses a <span className="font-semibold">Fiber architecture</span> to manage rendering.
+          </p>
+          <div className="space-y-4 text-slate-300">
+            <div>
+              <h4 className="font-semibold text-blue-300 mb-2">The Fiber Tree</h4>
+              <p className="text-sm mb-2">
+                React maintains a tree of "Fibers"—work units that represent components. During SSR, React walks this tree and calls each component's render function to produce HTML strings.
+              </p>
+              <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+                <div className="text-green-400">// Simplified React SSR flow</div>
+                <div>function renderToString(element) {`{`}</div>
+                <div className="ml-4">const fiber = createFiber(element);</div>
+                <div className="ml-4">const html = walkFiberTree(fiber);</div>
+                <div className="ml-4">return html;</div>
+                <div>{`}`}</div>
+              </div>
+            </div>
+            <div className="border-t border-blue-700/50 pt-4">
+              <h4 className="font-semibold text-purple-300 mb-2">Reconciliation Algorithm</h4>
+              <p className="text-sm">
+                When the client hydrates, React must reconcile the server-rendered tree with the client-rendered tree. This is where mismatches occur. React uses a diffing algorithm to determine which parts of the DOM need to be updated.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Lesson 3: Hydration */}
+      {/* Lesson 3: Hydration - The Great Wake-Up Call */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-white mb-4">Lesson 3: Hydration - The Great Wake-Up Call</h2>
 
@@ -171,7 +201,7 @@ export default function Module2() {
 
         <Card className="bg-slate-800/50 border-slate-700 mb-6">
           <CardHeader>
-            <CardTitle className="text-white">The Hydration Problem</CardTitle>
+            <CardTitle className="text-white">The Hydration Problem - Technical Deep Dive</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 text-slate-300">
             <p>
@@ -179,32 +209,57 @@ export default function Module2() {
             </p>
             <ul className="space-y-2 list-disc list-inside">
               <li>Parse and execute the entire JavaScript bundle</li>
-              <li>Reconstruct the component tree in memory</li>
+              <li>Reconstruct the component tree in memory (Fiber tree)</li>
               <li>Attach event listeners to DOM elements</li>
               <li>Verify the server-rendered HTML matches the client-rendered version</li>
             </ul>
             <p className="mt-4 pt-4 border-t border-slate-700">
               All of this happens on the main thread, blocking user interactions. This is why <span className="font-semibold">code-splitting</span> (Module 4) is so important—it reduces the amount of JavaScript that needs to be hydrated.
             </p>
+            <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto mt-4">
+              <div className="text-green-400">// React hydration process</div>
+              <div>const root = ReactDOM.hydrateRoot(</div>
+              <div className="ml-4">document.getElementById('root'),</div>
+              <div className="ml-4">&lt;App /&gt;</div>
+              <div>);</div>
+              <div className="mt-2 text-slate-400">// React now walks the Fiber tree and</div>
+              <div className="text-slate-400">// reconciles with existing DOM</div>
+            </div>
           </CardContent>
         </Card>
 
         {/* Hydration Pitfalls */}
         <div className="bg-red-900/30 border border-red-700/50 rounded-lg p-6 mb-6">
-          <h3 className="text-lg font-semibold text-red-300 mb-4">⚠️ Common Hydration Pitfalls</h3>
+          <h3 className="text-lg font-semibold text-red-300 mb-4">⚠️ Common Hydration Pitfalls & Debugging</h3>
           <div className="space-y-4 text-slate-300">
             <div>
               <h4 className="font-semibold text-red-300 mb-2">Hydration Mismatch Errors</h4>
               <p className="text-sm mb-2">The server renders one thing, but the client renders something different. React throws an error and falls back to full client-side rendering, losing all the SSR benefits.</p>
-              <p className="text-xs text-slate-400"><span className="font-semibold">Example:</span> Server renders based on UTC time, client renders based on local time. Mismatch! Or server renders with one random ID, client generates a different one.</p>
+              <p className="text-xs text-slate-400 mb-2"><span className="font-semibold">Example:</span> Server renders based on UTC time, client renders based on local time. Mismatch!</p>
+              <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+                <div className="text-green-400">// Bad: Time-dependent rendering</div>
+                <div>function TimeComponent() {`{`}</div>
+                <div className="ml-4">const time = new Date().toLocaleString();</div>
+                <div className="ml-4">return &lt;div&gt;{`{time}`}&lt;/div&gt;;</div>
+                <div>{`}`}</div>
+                <div className="mt-2 text-red-400">// Server renders: "10/27/2025, 6:40:33 PM UTC"</div>
+                <div className="text-red-400">// Client renders: "10/27/2025, 2:40:33 PM EST"</div>
+                <div className="text-red-400">// MISMATCH!</div>
+              </div>
             </div>
             <div className="border-t border-red-700/50 pt-4">
-              <h4 className="font-semibold text-red-300 mb-2">Hydration Blocking User Input</h4>
-              <p className="text-sm">The user clicks a button while hydration is happening. The click is ignored because React is too busy reconstructing the component tree. User experience suffers.</p>
+              <h4 className="font-semibold text-orange-300 mb-2">Debugging Hydration Mismatches</h4>
+              <p className="text-sm mb-2">Use React's built-in warnings in development:</p>
+              <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+                <div className="text-green-400">// Chrome DevTools Console will show:</div>
+                <div className="text-red-400">Warning: Expected server HTML to contain a matching &lt;div&gt;</div>
+                <div className="text-red-400">in &lt;TimeComponent&gt;</div>
+              </div>
+              <p className="text-sm mt-2">Check the actual HTML in DevTools and compare with what React renders on the client.</p>
             </div>
             <div className="border-t border-red-700/50 pt-4">
-              <h4 className="font-semibold text-red-300 mb-2">Hydration Thrashing</h4>
-              <p className="text-sm">The page appears interactive (looks hydrated) but isn't actually hydrated yet. User clicks, nothing happens. They click again. Poor experience and potential double submissions.</p>
+              <h4 className="font-semibold text-yellow-300 mb-2">Hydration Blocking User Input</h4>
+              <p className="text-sm">The user clicks a button while hydration is happening. The click is ignored because React is too busy reconstructing the component tree.</p>
             </div>
           </div>
         </div>
@@ -215,16 +270,29 @@ export default function Module2() {
           <p className="text-slate-300 mb-4">
             Instead of hydrating the entire page at once, hydrate only the parts the user is interacting with. This reduces the initial hydration cost and makes the page feel interactive faster.
           </p>
-          <div className="bg-slate-700/50 p-4 rounded text-sm text-slate-300 space-y-2">
+          <div className="bg-slate-700/50 p-4 rounded text-sm text-slate-300 space-y-2 mb-4">
             <p><span className="font-semibold text-blue-300">Step 1:</span> Server renders the entire page</p>
             <p><span className="font-semibold text-blue-300">Step 2:</span> Browser shows the page (looks interactive but isn't)</p>
             <p><span className="font-semibold text-blue-300">Step 3:</span> Hydrate critical components first (header, navigation, above-the-fold content)</p>
             <p><span className="font-semibold text-blue-300">Step 4:</span> Hydrate less critical components later (sidebar, comments, below-the-fold)</p>
           </div>
+          <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+            <div className="text-green-400">// Progressive hydration with React.lazy</div>
+            <div>const HeavyComponent = React.lazy(() =&gt;</div>
+            <div className="ml-4">import('./HeavyComponent')</div>
+            <div>);</div>
+            <div className="mt-2">function App() {`{`}</div>
+            <div className="ml-4">return (</div>
+            <div className="ml-8">&lt;Suspense fallback={`{`}&lt;Skeleton /&gt;{`}`}&gt;</div>
+            <div className="ml-12">&lt;HeavyComponent /&gt;</div>
+            <div className="ml-8">&lt;/Suspense&gt;</div>
+            <div className="ml-4">);</div>
+            <div>{`}`}</div>
+          </div>
         </div>
 
         {/* Islands Architecture */}
-        <div className="bg-purple-900/30 border border-purple-700/50 rounded-lg p-6">
+        <div className="bg-purple-900/30 border border-purple-700/50 rounded-lg p-6 mb-6">
           <h3 className="text-lg font-semibold text-purple-300 mb-4">Islands Architecture - The Alternative</h3>
           <p className="text-slate-300 mb-4">
             What if we didn't hydrate the entire page? What if we only hydrated the interactive "islands" and left the rest as static HTML?
@@ -247,7 +315,58 @@ export default function Module2() {
               <span>Islands can't easily share state</span>
             </div>
           </div>
-          <p className="text-slate-300 text-sm"><span className="font-semibold">Used by:</span> Astro, Fresh, and other modern frameworks that prioritize performance.</p>
+          <p className="text-slate-300 text-sm mb-4"><span className="font-semibold">Used by:</span> Astro, Fresh, and other modern frameworks that prioritize performance.</p>
+          
+          <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+            <div className="text-green-400">// Islands Architecture Example (Astro)</div>
+            <div>---</div>
+            <div className="text-slate-400">// Static HTML - NOT hydrated</div>
+            <div>const products = await getProducts();</div>
+            <div>---</div>
+            <div>&lt;div&gt;</div>
+            <div className="ml-4">&lt;h1&gt;Products&lt;/h1&gt;</div>
+            <div className="ml-4">{`{products.map(p => (`}</div>
+            <div className="ml-8">&lt;ProductCard product={`{p}`} /&gt;</div>
+            <div className="ml-4">{`)}`}</div>
+            <div className="ml-4">&lt;ShoppingCart client:load /&gt; {`{/* Island - hydrated */}`}</div>
+            <div>&lt;/div&gt;</div>
+          </div>
+        </div>
+
+        {/* Real-World Case Study */}
+        <div className="bg-indigo-900/30 border border-indigo-700/50 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-indigo-300 mb-4">Real-World Case Study: Netflix SSR Architecture</h3>
+          <p className="text-slate-300 mb-4">
+            Netflix uses SSR for their landing pages to improve SEO and initial load time. Here's how they handle hydration at scale:
+          </p>
+          <div className="space-y-3 text-slate-300 text-sm">
+            <div>
+              <h4 className="font-semibold text-blue-300 mb-2">Challenge: Rendering 10,000+ Movies</h4>
+              <p>Netflix's homepage needs to render thousands of movie cards. Hydrating all of them would block the main thread for seconds.</p>
+            </div>
+            <div className="border-t border-indigo-700/50 pt-3">
+              <h4 className="font-semibold text-purple-300 mb-2">Solution: Selective Hydration</h4>
+              <p className="mb-2">Netflix hydrates only the "above the fold" content (first 3-4 rows) immediately. Below-the-fold content is hydrated on-demand when the user scrolls.</p>
+              <div className="bg-slate-900 p-3 rounded text-xs font-mono overflow-x-auto">
+                <div className="text-green-400">// Pseudo-code: Netflix approach</div>
+                <div>const aboveFold = movies.slice(0, 12);</div>
+                <div>const belowFold = movies.slice(12);</div>
+                <div className="mt-2">// Hydrate above-fold immediately</div>
+                <div>ReactDOM.hydrateRoot(root, &lt;MovieGrid movies={`{aboveFold}`} /&gt;);</div>
+                <div className="mt-2">// Hydrate below-fold on scroll</div>
+                <div>window.addEventListener('scroll', () =&gt; {`{`}</div>
+                <div className="ml-4">if (isNearBottom()) {`{`}</div>
+                <div className="ml-8">hydrateElement(belowFoldContainer, belowFold);</div>
+                <div className="ml-4">{`}`}</div>
+                <div>{`}`});</div>
+              </div>
+            </div>
+            <div className="border-t border-indigo-700/50 pt-3">
+              <h4 className="font-semibold text-green-300 mb-2">Result</h4>
+              <p>Initial hydration time: 200ms (instead of 2000ms)</p>
+              <p>Time to Interactive (TTI): Improved by 80%</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -265,6 +384,10 @@ export default function Module2() {
           </li>
           <li className="flex gap-3">
             <span className="text-blue-400 font-bold">→</span>
+            <span>React Fiber architecture enables efficient rendering on both server and client.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="text-blue-400 font-bold">→</span>
             <span>Hydration is the process that "wakes up" server-rendered HTML, making it interactive.</span>
           </li>
           <li className="flex gap-3">
@@ -273,11 +396,15 @@ export default function Module2() {
           </li>
           <li className="flex gap-3">
             <span className="text-blue-400 font-bold">→</span>
-            <span>Watch out for hydration mismatches and use Progressive Hydration to reduce blocking time.</span>
+            <span>Progressive Hydration reduces blocking time by hydrating only critical components first.</span>
           </li>
           <li className="flex gap-3">
             <span className="text-blue-400 font-bold">→</span>
             <span>Islands Architecture is an alternative that hydrates only interactive parts.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="text-blue-400 font-bold">→</span>
+            <span>Hydration mismatches occur when server and client render different content—debug with React warnings.</span>
           </li>
         </ul>
       </section>
