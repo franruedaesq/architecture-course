@@ -429,6 +429,70 @@ export default function Module1() {
         </div>
       </section>
 
+      {/* Deep Dive Concept Pages */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-white mb-6">📚 Deep Dive into Core Concepts</h2>
+        <p className="text-slate-300 text-lg leading-relaxed mb-6">
+          Each concept mentioned in this module has a comprehensive university-level explanation. Click any concept below to explore in depth:
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          <Link href="/concepts/microservices">
+            <div className="bg-gradient-to-br from-blue-900/40 to-blue-800/20 hover:from-blue-900/60 hover:to-blue-800/40 border border-blue-700/50 p-4 rounded-lg cursor-pointer transition duration-300">
+              <h4 className="font-semibold text-blue-300 mb-2 text-lg">→ Microservices</h4>
+              <p className="text-slate-400 text-sm">Definition, architecture patterns, challenges, when to use, and real-world examples</p>
+            </div>
+          </Link>
+          <Link href="/concepts/service-boundaries">
+            <div className="bg-gradient-to-br from-green-900/40 to-green-800/20 hover:from-green-900/60 hover:to-green-800/40 border border-green-700/50 p-4 rounded-lg cursor-pointer transition duration-300">
+              <h4 className="font-semibold text-green-300 mb-2 text-lg">→ Service Boundaries</h4>
+              <p className="text-slate-400 text-sm">Defining boundaries, bounded contexts, cohesion, and design techniques</p>
+            </div>
+          </Link>
+          <Link href="/concepts/domain-driven-design">
+            <div className="bg-gradient-to-br from-purple-900/40 to-purple-800/20 hover:from-purple-900/60 hover:to-purple-800/40 border border-purple-700/50 p-4 rounded-lg cursor-pointer transition duration-300">
+              <h4 className="font-semibold text-purple-300 mb-2 text-lg">→ Domain-Driven Design</h4>
+              <p className="text-slate-400 text-sm">DDD principles, ubiquitous language, aggregates, value objects, and entities</p>
+            </div>
+          </Link>
+          <Link href="/concepts/cap-theorem">
+            <div className="bg-gradient-to-br from-yellow-900/40 to-yellow-800/20 hover:from-yellow-900/60 hover:to-yellow-800/40 border border-yellow-700/50 p-4 rounded-lg cursor-pointer transition duration-300">
+              <h4 className="font-semibold text-yellow-300 mb-2 text-lg">→ CAP Theorem</h4>
+              <p className="text-slate-400 text-sm">Consistency, availability, partition tolerance, and trade-offs in distributed systems</p>
+            </div>
+          </Link>
+          <Link href="/concepts/service-communication">
+            <div className="bg-gradient-to-br from-indigo-900/40 to-indigo-800/20 hover:from-indigo-900/60 hover:to-indigo-800/40 border border-indigo-700/50 p-4 rounded-lg cursor-pointer transition duration-300">
+              <h4 className="font-semibold text-indigo-300 mb-2 text-lg">→ Service Communication</h4>
+              <p className="text-slate-400 text-sm">Synchronous (REST, gRPC) vs asynchronous (message queues, events) patterns</p>
+            </div>
+          </Link>
+          <Link href="/concepts/advanced-communication">
+            <div className="bg-gradient-to-br from-pink-900/40 to-pink-800/20 hover:from-pink-900/60 hover:to-pink-800/40 border border-pink-700/50 p-4 rounded-lg cursor-pointer transition duration-300">
+              <h4 className="font-semibold text-pink-300 mb-2 text-lg">→ Advanced Communication</h4>
+              <p className="text-slate-400 text-sm">Event-driven architecture, sagas, choreography vs orchestration patterns</p>
+            </div>
+          </Link>
+          <Link href="/concepts/backend-for-frontend">
+            <div className="bg-gradient-to-br from-cyan-900/40 to-cyan-800/20 hover:from-cyan-900/60 hover:to-cyan-800/40 border border-cyan-700/50 p-4 rounded-lg cursor-pointer transition duration-300">
+              <h4 className="font-semibold text-cyan-300 mb-2 text-lg">→ Backend for Frontend</h4>
+              <p className="text-slate-400 text-sm">BFF pattern, data aggregation, transformation, and composition strategies</p>
+            </div>
+          </Link>
+          <Link href="/concepts/service-discovery">
+            <div className="bg-gradient-to-br from-emerald-900/40 to-emerald-800/20 hover:from-emerald-900/60 hover:to-emerald-800/40 border border-emerald-700/50 p-4 rounded-lg cursor-pointer transition duration-300">
+              <h4 className="font-semibold text-emerald-300 mb-2 text-lg">→ Service Discovery</h4>
+              <p className="text-slate-400 text-sm">Service registries, health checks, load balancing, and dynamic service location</p>
+            </div>
+          </Link>
+          <Link href="/concepts/circuit-breaker">
+            <div className="bg-gradient-to-br from-orange-900/40 to-orange-800/20 hover:from-orange-900/60 hover:to-orange-800/40 border border-orange-700/50 p-4 rounded-lg cursor-pointer transition duration-300">
+              <h4 className="font-semibold text-orange-300 mb-2 text-lg">→ Circuit Breaker</h4>
+              <p className="text-slate-400 text-sm">Preventing cascading failures, resilience patterns, and fallback strategies</p>
+            </div>
+          </Link>
+        </div>
+      </section>
+
       {/* Key Takeaways */}
       <section className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-800/50 rounded-lg p-8 mb-12">
         <h3 className="text-xl font-bold text-white mb-4">Key Takeaways</h3>
