@@ -229,7 +229,9 @@ onLCP(emit);`}
             </div>
             <div>
               <div className="text-green-400 mb-2">// Node BFF: OpenTelemetry tracer</div>
-              <div>import { trace } from "@opentelemetry/api";</div>
+              <div>
+                import {"{"} trace {"}"} from "@opentelemetry/api";
+              </div>
               <div>const tracer = trace.getTracer("checkout-bff");</div>
               <div className="mt-2">export async function placeOrder(req, res) {`{`}</div>
               <div className="ml-4">return tracer.startActiveSpan("http.place_order", span {`=>`} {`{`}</div>
