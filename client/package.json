@@ -72,7 +72,8 @@
     "typescript": "5.6.3",
     "vite": "^7.1.9",
     "vite-plugin-manus-runtime": "^0.0.52",
-    "vitest": "^2.1.9"
+    "vitest": "^2.1.9",
+    "@builder.io/vite-plugin-jsx-loc": "^0.1.1"
   },
   "packageManager": "pnpm@10.4.1"
 }
