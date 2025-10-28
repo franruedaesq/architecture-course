@@ -213,7 +213,7 @@ export default function Module5() {
             <div>
               <div className="text-green-400 mb-2">// React micro-frontend: Web Vitals</div>
               <div>import { onCLS, onINP, onLCP } from "web-vitals";</div>
-              <div className="mt-2">const emit = metric => {`{`}</div>
+              <div className="mt-2">const emit = metric {`=>`} {`{`}</div>
               <div className="ml-4">fetch("/telemetry", {`{`}</div>
               <div className="ml-8">method: "POST",</div>
               <div className="ml-8">body: JSON.stringify({`{`} metric, team: "checkout" {`}`}),</div>
@@ -228,7 +228,7 @@ export default function Module5() {
               <div>import { trace } from "@opentelemetry/api";</div>
               <div>const tracer = trace.getTracer("checkout-bff");</div>
               <div className="mt-2">export async function placeOrder(req, res) {`{`}</div>
-              <div className="ml-4">return tracer.startActiveSpan("http.place_order", span => {`{`}</div>
+              <div className="ml-4">return tracer.startActiveSpan("http.place_order", span {`=>`} {`{`}</div>
               <div className="ml-8">span.setAttribute("team", "checkout");</div>
               <div className="ml-8">span.setAttribute("cart.value", req.body.total);</div>
               <div className="ml-8">// call downstream services...</div>
@@ -269,7 +269,7 @@ export default function Module5() {
           <div className="space-y-3 text-slate-300 text-sm">
             <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
               <h4 className="font-semibold text-blue-300 mb-2">Sampling Strategy</h4>
-              <p>100% of errors, 20% of slow traces (> 1s), 1% baseline traffic. Dynamic sampling preserves signal while controlling storage cost.</p>
+              <p>100% of errors, 20% of slow traces (&gt; 1s), 1% baseline traffic. Dynamic sampling preserves signal while controlling storage cost.</p>
             </div>
             <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
               <h4 className="font-semibold text-purple-300 mb-2">Schema Governance</h4>
@@ -373,7 +373,7 @@ export default function Module5() {
             </div>
             <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
               <div className="font-semibold text-blue-200 mb-2">3. Decide</div>
-              <p>Use error budget burn rate to gate releases. If burn > 2x steady state, freeze risky deployments and focus on reliability.</p>
+              <p>Use error budget burn rate to gate releases. If burn &gt; 2x steady state, freeze risky deployments and focus on reliability.</p>
             </div>
             <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
               <div className="font-semibold text-blue-200 mb-2">4. Learn</div>

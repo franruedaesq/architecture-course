@@ -35,7 +35,7 @@ export default function ErrorBudgetsConcept() {
           </div>
           <div>
             <h3 className="text-lg font-semibold text-amber-200 mb-2">Burn Rate Formula</h3>
-            <p>Burn rate = (budget consumed in last X minutes) / (budget allowed in X minutes). Alert when burn rate > 2 for 1 hour or > 4 for 5 minutes.</p>
+            <p>Burn rate = (budget consumed in last X minutes) / (budget allowed in X minutes). Alert when burn rate &gt; 2 for 1 hour or &gt; 4 for 5 minutes.</p>
           </div>
           <div>
             <h3 className="text-lg font-semibold text-amber-200 mb-2">Multi-Window Alerts</h3>
@@ -57,7 +57,7 @@ export default function ErrorBudgetsConcept() {
           </div>
           <div className="bg-slate-800/60 border border-slate-700 rounded-lg p-6">
             <h3 className="text-lg font-semibold text-white mb-2">Red Zone</h3>
-            <p className="text-slate-300 text-sm">Burn rate > 2. Freeze non-critical launches, allocate engineers to reliability work, and schedule executive updates.</p>
+            <p className="text-slate-300 text-sm">Burn rate &gt; 2. Freeze non-critical launches, allocate engineers to reliability work, and schedule executive updates.</p>
           </div>
         </div>
       </section>
