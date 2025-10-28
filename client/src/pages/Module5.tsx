@@ -212,16 +212,20 @@ export default function Module5() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono bg-slate-900/60 border border-slate-800 rounded-lg p-4">
             <div>
               <div className="text-green-400 mb-2">// React micro-frontend: Web Vitals</div>
-              <div>import { onCLS, onINP, onLCP } from "web-vitals";</div>
-              <div className="mt-2">const emit = metric {`=>`} {`{`}</div>
-              <div className="ml-4">fetch("/telemetry", {`{`}</div>
-              <div className="ml-8">method: "POST",</div>
-              <div className="ml-8">body: JSON.stringify({`{`} metric, team: "checkout" {`}`}),</div>
-              <div className="ml-4">{`}`});</div>
-              <div>{`}`};</div>
-              <div className="mt-2">onCLS(emit);</div>
-              <div>onINP(emit);</div>
-              <div>onLCP(emit);</div>
+              <pre className="bg-slate-950/60 border border-slate-800 rounded p-3 whitespace-pre-wrap overflow-x-auto">
+                {`import { onCLS, onINP, onLCP } from "web-vitals";
+
+const emit = (metric) => {
+  fetch("/telemetry", {
+    method: "POST",
+    body: JSON.stringify({ metric, team: "checkout" }),
+  });
+};
+
+onCLS(emit);
+onINP(emit);
+onLCP(emit);`}
+              </pre>
             </div>
             <div>
               <div className="text-green-400 mb-2">// Node BFF: OpenTelemetry tracer</div>
