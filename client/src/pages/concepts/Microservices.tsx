@@ -1,13 +1,18 @@
 import ConceptPage from "@/components/ConceptPage";
 import BigWordAlert from "@/components/BigWordAlert";
+import { getConceptPageMetadata } from "@shared/courseContent";
 
 export default function MicroservicesConcept() {
+  const { title, subtitle, backToModule, previousConcept, nextConcept } =
+    getConceptPageMetadata("microservices");
+
   return (
     <ConceptPage
-      title="Microservices Architecture"
-      subtitle="Understanding the fundamental shift from monoliths to distributed systems"
-      backToModule={{ path: "/module/1", label: "Module 1: The Backend Divide" }}
-      nextConcept={{ path: "/concepts/service-boundaries", label: "Service Boundaries" }}
+      title={title}
+      subtitle={subtitle}
+      backToModule={backToModule}
+      previousConcept={previousConcept}
+      nextConcept={nextConcept}
     >
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-white mb-6">What Are Microservices?</h2>

@@ -1,14 +1,18 @@
 import ConceptPage from "@/components/ConceptPage";
 import BigWordAlert from "@/components/BigWordAlert";
+import { getConceptPageMetadata } from "@shared/courseContent";
 
 export default function ComponentCompositionConcept() {
+  const { title, subtitle, backToModule, previousConcept, nextConcept } =
+    getConceptPageMetadata("component-composition");
+
   return (
     <ConceptPage
-      title="Component Composition & Module Federation"
-      subtitle="Composing applications from independently deployed components"
-      previousConcept={{ path: "/concepts/streaming-rendering", label: "Streaming Rendering" }}
-      nextConcept={{ path: "/concepts/performance-optimization", label: "Performance Optimization" }}
-      backToModule={{ path: "/module/2", label: "Module 2: The Frontend Fragmentation" }}
+      title={title}
+      subtitle={subtitle}
+      previousConcept={previousConcept}
+      nextConcept={nextConcept}
+      backToModule={backToModule}
     >
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-white mb-6">What is Component Composition?</h2>

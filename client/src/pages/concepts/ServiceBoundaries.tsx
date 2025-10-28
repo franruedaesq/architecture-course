@@ -1,14 +1,18 @@
 import ConceptPage from "@/components/ConceptPage";
 import BigWordAlert from "@/components/BigWordAlert";
+import { getConceptPageMetadata } from "@shared/courseContent";
 
 export default function ServiceBoundariesConcept() {
+  const { title, subtitle, backToModule, previousConcept, nextConcept } =
+    getConceptPageMetadata("service-boundaries");
+
   return (
     <ConceptPage
-      title="Service Boundaries & Bounded Contexts"
-      subtitle="Defining where one service ends and another begins"
-      previousConcept={{ path: "/concepts/microservices", label: "Microservices" }}
-      nextConcept={{ path: "/concepts/domain-driven-design", label: "Domain-Driven Design" }}
-      backToModule={{ path: "/module/1", label: "Module 1: The Backend Divide" }}
+      title={title}
+      subtitle={subtitle}
+      previousConcept={previousConcept}
+      nextConcept={nextConcept}
+      backToModule={backToModule}
     >
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-white mb-6">The Service Boundary Problem</h2>

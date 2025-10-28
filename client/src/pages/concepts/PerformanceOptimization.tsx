@@ -1,13 +1,18 @@
 import ConceptPage from "@/components/ConceptPage";
 import BigWordAlert from "@/components/BigWordAlert";
+import { getConceptPageMetadata } from "@shared/courseContent";
 
 export default function PerformanceOptimizationConcept() {
+  const { title, subtitle, backToModule, previousConcept, nextConcept } =
+    getConceptPageMetadata("performance-optimization");
+
   return (
     <ConceptPage
-      title="Performance Optimization"
-      subtitle="Strategies for optimizing frontend performance in modern applications"
-      previousConcept={{ path: "/concepts/component-composition", label: "Component Composition" }}
-      backToModule={{ path: "/module/2", label: "Module 2: The Frontend Fragmentation" }}
+      title={title}
+      subtitle={subtitle}
+      previousConcept={previousConcept}
+      nextConcept={nextConcept}
+      backToModule={backToModule}
     >
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-white mb-6">Performance Optimization Overview</h2>

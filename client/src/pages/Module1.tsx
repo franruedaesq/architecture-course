@@ -8,14 +8,7 @@ import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 
 export default function Module1() {
   return (
-    <ModuleLayout
-      moduleNumber={1}
-      title="The Backend Divide"
-      subtitle="Microservices & Backend for Frontend (BFF)"
-      description="Understand why we broke the monolith into microservices and how the BFF acts as the perfect mediator between complex backends and simple frontends."
-      previousModule={null}
-      nextModule={2}
-    >
+    <ModuleLayout moduleId={1}>
       {/* Lesson 1: The Monolith Problem */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-white mb-4">Lesson 1: The Monolith's Downfall</h2>

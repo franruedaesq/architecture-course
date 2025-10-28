@@ -1,69 +1,92 @@
+import { Suspense, lazy, type ComponentType } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Home from "./pages/Home";
-import Module1 from "./pages/Module1";
-import Module2 from "./pages/Module2";
-import Module3 from "./pages/Module3";
-import Module4 from "./pages/Module4";
-import Module5 from "./pages/Module5";
-// Concept pages
-import MicroservicesConcept from "./pages/concepts/Microservices";
-import ServiceBoundariesConcept from "./pages/concepts/ServiceBoundaries";
-import DomainDrivenDesignConcept from "./pages/concepts/DomainDrivenDesign";
-import CAPTheoremConcept from "./pages/concepts/CAPTheorem";
-import ServiceCommunicationConcept from "./pages/concepts/ServiceCommunication";
-import AdvancedCommunicationConcept from "./pages/concepts/AdvancedCommunication";
-import BackendForFrontendConcept from "./pages/concepts/BackendForFrontend";
-import ServiceDiscoveryConcept from "./pages/concepts/ServiceDiscovery";
-import CircuitBreakerConcept from "./pages/concepts/CircuitBreaker";
-// Module 2 Concept pages
-import MicroFrontendsConcept from "./pages/concepts/MicroFrontends";
-import ServerSideRenderingConcept from "./pages/concepts/ServerSideRendering";
-import ReactFiberConcept from "./pages/concepts/ReactFiber";
-import HydrationConcept from "./pages/concepts/Hydration";
-import IslandsArchitectureConcept from "./pages/concepts/IslandsArchitecture";
-import VirtualDOMConcept from "./pages/concepts/VirtualDOM";
-import StreamingRenderingConcept from "./pages/concepts/StreamingRendering";
-import ComponentCompositionConcept from "./pages/concepts/ComponentComposition";
-import PerformanceOptimizationConcept from "./pages/concepts/PerformanceOptimization";
+
+const Home = lazy(() => import("./pages/Home"));
+const Module1 = lazy(() => import("./pages/Module1"));
+const Module2 = lazy(() => import("./pages/Module2"));
+const Module3 = lazy(() => import("./pages/Module3"));
+const Module4 = lazy(() => import("./pages/Module4"));
+const Module5 = lazy(() => import("./pages/Module5"));
+
+const MicroservicesConcept = lazy(() => import("./pages/concepts/Microservices"));
+const ServiceBoundariesConcept = lazy(() => import("./pages/concepts/ServiceBoundaries"));
+const DomainDrivenDesignConcept = lazy(() => import("./pages/concepts/DomainDrivenDesign"));
+const CAPTheoremConcept = lazy(() => import("./pages/concepts/CAPTheorem"));
+const ServiceCommunicationConcept = lazy(() => import("./pages/concepts/ServiceCommunication"));
+const AdvancedCommunicationConcept = lazy(() => import("./pages/concepts/AdvancedCommunication"));
+const BackendForFrontendConcept = lazy(() => import("./pages/concepts/BackendForFrontend"));
+const ServiceDiscoveryConcept = lazy(() => import("./pages/concepts/ServiceDiscovery"));
+const CircuitBreakerConcept = lazy(() => import("./pages/concepts/CircuitBreaker"));
+const MicroFrontendsConcept = lazy(() => import("./pages/concepts/MicroFrontends"));
+const ServerSideRenderingConcept = lazy(() => import("./pages/concepts/ServerSideRendering"));
+const ReactFiberConcept = lazy(() => import("./pages/concepts/ReactFiber"));
+const HydrationConcept = lazy(() => import("./pages/concepts/Hydration"));
+const IslandsArchitectureConcept = lazy(() => import("./pages/concepts/IslandsArchitecture"));
+const VirtualDOMConcept = lazy(() => import("./pages/concepts/VirtualDOM"));
+const StreamingRenderingConcept = lazy(() => import("./pages/concepts/StreamingRendering"));
+const ComponentCompositionConcept = lazy(() => import("./pages/concepts/ComponentComposition"));
+const PerformanceOptimizationConcept = lazy(() => import("./pages/concepts/PerformanceOptimization"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
+
+interface RouteConfig {
+  path: string;
+  component: ComponentType<any>;
+}
+
+const moduleRoutes: RouteConfig[] = [
+  { path: "/module/1", component: Module1 },
+  { path: "/module/2", component: Module2 },
+  { path: "/module/3", component: Module3 },
+  { path: "/module/4", component: Module4 },
+  { path: "/module/5", component: Module5 },
+];
+
+const conceptRoutes: RouteConfig[] = [
+  { path: "/concepts/microservices", component: MicroservicesConcept },
+  { path: "/concepts/service-boundaries", component: ServiceBoundariesConcept },
+  { path: "/concepts/domain-driven-design", component: DomainDrivenDesignConcept },
+  { path: "/concepts/cap-theorem", component: CAPTheoremConcept },
+  { path: "/concepts/service-communication", component: ServiceCommunicationConcept },
+  { path: "/concepts/advanced-communication", component: AdvancedCommunicationConcept },
+  { path: "/concepts/backend-for-frontend", component: BackendForFrontendConcept },
+  { path: "/concepts/service-discovery", component: ServiceDiscoveryConcept },
+  { path: "/concepts/circuit-breaker", component: CircuitBreakerConcept },
+  { path: "/concepts/micro-frontends", component: MicroFrontendsConcept },
+  { path: "/concepts/server-side-rendering", component: ServerSideRenderingConcept },
+  { path: "/concepts/react-fiber", component: ReactFiberConcept },
+  { path: "/concepts/hydration", component: HydrationConcept },
+  { path: "/concepts/islands-architecture", component: IslandsArchitectureConcept },
+  { path: "/concepts/virtual-dom", component: VirtualDOMConcept },
+  { path: "/concepts/streaming-rendering", component: StreamingRenderingConcept },
+  { path: "/concepts/component-composition", component: ComponentCompositionConcept },
+  { path: "/concepts/performance-optimization", component: PerformanceOptimizationConcept },
+];
 
 function Router() {
   return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/module/1"} component={Module1} />
-      <Route path={"/module/2"} component={Module2} />
-      <Route path={"/module/3"} component={Module3} />
-      <Route path={"/module/4"} component={Module4} />
-      <Route path={"/module/5"} component={Module5} />
-      {/* Concept pages */}
-      <Route path={"/concepts/microservices"} component={MicroservicesConcept} />
-      <Route path={"/concepts/service-boundaries"} component={ServiceBoundariesConcept} />
-      <Route path={"/concepts/domain-driven-design"} component={DomainDrivenDesignConcept} />
-      <Route path={"/concepts/cap-theorem"} component={CAPTheoremConcept} />
-      <Route path={"/concepts/service-communication"} component={ServiceCommunicationConcept} />
-      <Route path={"/concepts/advanced-communication"} component={AdvancedCommunicationConcept} />
-      <Route path={"/concepts/backend-for-frontend"} component={BackendForFrontendConcept} />
-      <Route path={"/concepts/service-discovery"} component={ServiceDiscoveryConcept} />
-      <Route path={"/concepts/circuit-breaker"} component={CircuitBreakerConcept} />
-      {/* Module 2 Concept pages */}
-      <Route path={"/concepts/micro-frontends"} component={MicroFrontendsConcept} />
-      <Route path={"/concepts/server-side-rendering"} component={ServerSideRenderingConcept} />
-      <Route path={"/concepts/react-fiber"} component={ReactFiberConcept} />
-      <Route path={"/concepts/hydration"} component={HydrationConcept} />
-      <Route path={"/concepts/islands-architecture"} component={IslandsArchitectureConcept} />
-      <Route path={"/concepts/virtual-dom"} component={VirtualDOMConcept} />
-      <Route path={"/concepts/streaming-rendering"} component={StreamingRenderingConcept} />
-      <Route path={"/concepts/component-composition"} component={ComponentCompositionConcept} />
-      <Route path={"/concepts/performance-optimization"} component={PerformanceOptimizationConcept} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-slate-950 text-slate-300">
+          Loading content...
+        </div>
+      }
+    >
+      <Switch>
+        <Route path="/" component={Home} />
+        {moduleRoutes.map(route => (
+          <Route key={route.path} path={route.path} component={route.component} />
+        ))}
+        {conceptRoutes.map(route => (
+          <Route key={route.path} path={route.path} component={route.component} />
+        ))}
+        <Route path="/404" component={NotFound} />
+        <Route component={NotFound} />
+      </Switch>
+    </Suspense>
   );
 }
 
@@ -81,4 +104,3 @@ function App() {
 }
 
 export default App;
-

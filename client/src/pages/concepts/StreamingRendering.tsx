@@ -1,14 +1,18 @@
 import ConceptPage from "@/components/ConceptPage";
 import BigWordAlert from "@/components/BigWordAlert";
+import { getConceptPageMetadata } from "@shared/courseContent";
 
 export default function StreamingRenderingConcept() {
+  const { title, subtitle, backToModule, previousConcept, nextConcept } =
+    getConceptPageMetadata("streaming-rendering");
+
   return (
     <ConceptPage
-      title="Streaming & Progressive Rendering"
-      subtitle="Sending HTML to the browser progressively instead of waiting for the entire page to render"
-      previousConcept={{ path: "/concepts/virtual-dom", label: "Virtual DOM" }}
-      nextConcept={{ path: "/concepts/component-composition", label: "Component Composition" }}
-      backToModule={{ path: "/module/2", label: "Module 2: The Frontend Fragmentation" }}
+      title={title}
+      subtitle={subtitle}
+      previousConcept={previousConcept}
+      nextConcept={nextConcept}
+      backToModule={backToModule}
     >
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-white mb-6">What is Streaming Rendering?</h2>

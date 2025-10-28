@@ -1,14 +1,18 @@
 import ConceptPage from "@/components/ConceptPage";
 import BigWordAlert from "@/components/BigWordAlert";
+import { getConceptPageMetadata } from "@shared/courseContent";
 
 export default function DomainDrivenDesignConcept() {
+  const { title, subtitle, backToModule, previousConcept, nextConcept } =
+    getConceptPageMetadata("domain-driven-design");
+
   return (
     <ConceptPage
-      title="Domain-Driven Design (DDD)"
-      subtitle="Aligning software architecture with business domains"
-      previousConcept={{ path: "/concepts/service-boundaries", label: "Service Boundaries" }}
-      nextConcept={{ path: "/concepts/cap-theorem", label: "CAP Theorem" }}
-      backToModule={{ path: "/module/1", label: "Module 1: The Backend Divide" }}
+      title={title}
+      subtitle={subtitle}
+      previousConcept={previousConcept}
+      nextConcept={nextConcept}
+      backToModule={backToModule}
     >
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-white mb-6">What is Domain-Driven Design?</h2>
