@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronLeft } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -13,7 +12,7 @@ export default function Module5() {
         <h2 className="text-2xl font-bold text-white mb-4">Lesson 1: Team Organization & Conway's Law</h2>
 
         <p className="text-slate-300 text-lg leading-relaxed mb-6">
-          Here's a fundamental truth: <span className="font-semibold text-yellow-300">The architecture of your system mirrors the structure of your organization.</span> This is Conway's Law.
+          Here's a fundamental truth: <span className="font-semibold text-yellow-300">The architecture of your system mirrors the structure of your organization.</span> This is Conway's Law, and it is the reason organizational design is a technical decision. If two teams rarely talk, expect the APIs between their services to be brittle. If your platform team is swamped, deployment tooling will lag behind the needs of product teams.
         </p>
 
         <BigWordAlert
@@ -22,7 +21,7 @@ export default function Module5() {
         />
 
         <p className="text-slate-300 text-lg leading-relaxed mb-6 mt-6">
-          If you have a monolith with one team, that's fine. But if you have 50 teams sharing one codebase, you'll have chaos. Micro-frontends work best when you also restructure your teams.
+          If you have a monolith with one team, that's fine. But if you have 50 teams sharing one codebase, you'll have chaos. Micro-frontends work best when you also restructure your teams. Mature organizations design <span className="font-semibold text-blue-200">team APIs</span>: clear interfaces, service ownership, and escalation paths that mirror the software architecture.
         </p>
 
         <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-6 mb-6">
@@ -89,6 +88,63 @@ export default function Module5() {
             </div>
           </div>
         </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div className="bg-indigo-900/30 border border-indigo-700/50 rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-indigo-300 mb-3">Research-Backed Team Structures</h3>
+            <p className="text-slate-300 text-sm mb-3">
+              Team Topologies identifies four canonical team types. High-performing organizations deliberately compose them:
+            </p>
+            <ul className="space-y-2 text-sm text-slate-300">
+              <li><span className="font-semibold text-indigo-200">Stream-Aligned:</span> Own a user or business workflow end-to-end. Optimized for flow and fast delivery.</li>
+              <li><span className="font-semibold text-indigo-200">Platform:</span> Provide paved roads and reusable capabilities (CI/CD, design systems) to reduce cognitive load.</li>
+              <li><span className="font-semibold text-indigo-200">Enabling:</span> Short-lived consultants that unblock teams by transferring skills (e.g., accessibility, observability).</li>
+              <li><span className="font-semibold text-indigo-200">Complicated-Subsystem:</span> Guard specialized knowledge (e.g., recommendation engine, payment risk modeling).</li>
+            </ul>
+          </div>
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-blue-200 mb-3">Operationalizing Conway's Law</h3>
+            <p className="text-sm text-slate-300 mb-3">
+              Map your communication structure to architecture using lightweight governance:
+            </p>
+            <div className="space-y-2 text-sm text-slate-300">
+              <div className="bg-slate-900/60 border border-slate-700 rounded p-3">
+                <div className="font-semibold text-blue-200 mb-1">Architecture Sync (weekly)</div>
+                <p>Representatives from each stream-aligned team share roadmap changes; platform team surfaces breaking changes.</p>
+              </div>
+              <div className="bg-slate-900/60 border border-slate-700 rounded p-3">
+                <div className="font-semibold text-blue-200 mb-1">Runbooks & Contracts</div>
+                <p>Every micro-frontend publishes its API contracts, SLOs, and on-call schedule in a shared repository.</p>
+              </div>
+              <div className="bg-slate-900/60 border border-slate-700 rounded p-3">
+                <div className="font-semibold text-blue-200 mb-1">RACI for Shared Components</div>
+                <p>Define who is Responsible, Accountable, Consulted, and Informed for each shared asset (design tokens, auth flows).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-blue-300 mb-3">Measuring Team Health</h3>
+          <p className="text-slate-300 text-sm mb-3">
+            Use socio-technical metrics to ensure architecture choices are sustainable:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-300">
+            <div className="bg-slate-800/60 border border-slate-700 rounded p-4">
+              <div className="font-semibold text-blue-200 mb-2">DORA Metrics</div>
+              <ul className="space-y-1">
+                <li>Deployment frequency per team</li>
+                <li>Lead time for changes</li>
+                <li>Change fail rate</li>
+                <li>Mean time to recovery</li>
+              </ul>
+            </div>
+            <div className="bg-slate-800/60 border border-slate-700 rounded p-4">
+              <div className="font-semibold text-blue-200 mb-2">Cognitive Load Surveys</div>
+              <p>Quarterly surveys ask engineers to rate the mental effort required to work on their stack. Rising scores signal a need for platform support.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Lesson 2: Monitoring & Observability */}
@@ -96,13 +152,31 @@ export default function Module5() {
         <h2 className="text-2xl font-bold text-white mb-4">Lesson 2: Monitoring & Observability at Scale</h2>
 
         <p className="text-slate-300 text-lg leading-relaxed mb-6">
-          With multiple micro-frontends deployed independently, you need to know what's happening in production. You need <span className="font-semibold text-blue-300">observability</span>.
+          With multiple micro-frontends deployed independently, you need to know what's happening in production. You need <span className="font-semibold text-blue-300">observability</span>. Monitoring tells you when something you predicted would happen occurs; observability lets you ask <span className="italic">new</span> questions in the middle of an incident.
         </p>
 
         <BigWordAlert
           term="Observability"
           definition="The ability to understand the internal state of a system by examining its outputs (logs, metrics, traces). Unlike monitoring, observability lets you ask new questions about your system."
         />
+
+        <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 my-6">
+          <h3 className="text-lg font-semibold text-white mb-3">Building the Telemetry Pipeline</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-300">
+            <div className="bg-slate-900/60 border border-slate-700 rounded p-4">
+              <div className="font-semibold text-blue-300 mb-2">Instrumentation</div>
+              <p>Frontend: Web Vitals API + custom business events. Backend: OpenTelemetry auto-instrumentation. Infrastructure: kube-state-metrics, Envoy access logs.</p>
+            </div>
+            <div className="bg-slate-900/60 border border-slate-700 rounded p-4">
+              <div className="font-semibold text-purple-300 mb-2">Collection & Transport</div>
+              <p>Use the OpenTelemetry Collector to receive data over OTLP, enrich with metadata (team owner, git SHA), and forward to storage backends.</p>
+            </div>
+            <div className="bg-slate-900/60 border border-slate-700 rounded p-4">
+              <div className="font-semibold text-emerald-300 mb-2">Storage & Analysis</div>
+              <p>Logs → Loki/Elastic, Metrics → Prometheus/Mimir, Traces → Jaeger/Tempo. Unified querying enables cross-cutting analysis.</p>
+            </div>
+          </div>
+        </div>
 
         <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-6 mb-6">
           <h3 className="text-lg font-semibold text-blue-300 mb-4">The Three Pillars of Observability</h3>
@@ -133,6 +207,41 @@ export default function Module5() {
           </div>
         </div>
 
+        <div className="bg-purple-900/30 border border-purple-700/50 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold text-purple-300 mb-4">Instrumentation Example: Frontend + Backend</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono bg-slate-900/60 border border-slate-800 rounded-lg p-4">
+            <div>
+              <div className="text-green-400 mb-2">// React micro-frontend: Web Vitals</div>
+              <div>import { onCLS, onINP, onLCP } from "web-vitals";</div>
+              <div className="mt-2">const emit = metric {`=>`} {`{`}</div>
+              <div className="ml-4">fetch("/telemetry", {`{`}</div>
+              <div className="ml-8">method: "POST",</div>
+              <div className="ml-8">body: JSON.stringify({`{`} metric, team: "checkout" {`}`}),</div>
+              <div className="ml-4">{`}`});</div>
+              <div>{`}`};</div>
+              <div className="mt-2">onCLS(emit);</div>
+              <div>onINP(emit);</div>
+              <div>onLCP(emit);</div>
+            </div>
+            <div>
+              <div className="text-green-400 mb-2">// Node BFF: OpenTelemetry tracer</div>
+              <div>import { trace } from "@opentelemetry/api";</div>
+              <div>const tracer = trace.getTracer("checkout-bff");</div>
+              <div className="mt-2">export async function placeOrder(req, res) {`{`}</div>
+              <div className="ml-4">return tracer.startActiveSpan("http.place_order", span {`=>`} {`{`}</div>
+              <div className="ml-8">span.setAttribute("team", "checkout");</div>
+              <div className="ml-8">span.setAttribute("cart.value", req.body.total);</div>
+              <div className="ml-8">// call downstream services...</div>
+              <div className="ml-8">span.end();</div>
+              <div className="ml-4">{`}`});</div>
+              <div>{`}`}</div>
+            </div>
+          </div>
+          <p className="text-slate-300 text-sm mt-4">
+            Consistent semantic conventions (service name, team, customer segment) make it possible to filter telemetry for a specific ownership group when paged in the middle of the night.
+          </p>
+        </div>
+
         <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 mb-6">
           <h3 className="text-lg font-semibold text-white mb-4">Real-World Example: Debugging a Slow Checkout</h3>
           <div className="space-y-3 text-slate-300 text-sm">
@@ -154,6 +263,24 @@ export default function Module5() {
             </div>
           </div>
         </div>
+
+        <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-white mb-4">Telemetry Governance</h3>
+          <div className="space-y-3 text-slate-300 text-sm">
+            <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
+              <h4 className="font-semibold text-blue-300 mb-2">Sampling Strategy</h4>
+              <p>100% of errors, 20% of slow traces (&gt; 1s), 1% baseline traffic. Dynamic sampling preserves signal while controlling storage cost.</p>
+            </div>
+            <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
+              <h4 className="font-semibold text-purple-300 mb-2">Schema Governance</h4>
+              <p>Schema registry enforces naming conventions (service.name, deployment.environment, customer.tier). Breaking changes require an RFC.</p>
+            </div>
+            <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
+              <h4 className="font-semibold text-emerald-300 mb-2">Dashboards & Notebooks</h4>
+              <p>Standard dashboard templates (Golden Signals, Release Health) accelerate incident triage and provide objective measures for go/no-go decisions.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Lesson 3: SLOs & Performance Budgets */}
@@ -161,13 +288,35 @@ export default function Module5() {
         <h2 className="text-2xl font-bold text-white mb-4">Lesson 3: SLOs, SLIs & Performance Budgets</h2>
 
         <p className="text-slate-300 text-lg leading-relaxed mb-6">
-          How do you define "good performance"? You need to set targets and measure against them.
+          How do you define "good performance"? You need to set targets and measure against them. In reliability engineering we speak in a trio: <span className="font-semibold text-blue-200">Service Level Indicators (SLIs)</span> are the measurements, <span className="font-semibold text-blue-200">Service Level Objectives (SLOs)</span> are the targets, and <span className="font-semibold text-blue-200">Service Level Agreements (SLAs)</span> are the contractual promises made to customers.
         </p>
 
         <BigWordAlert
           term="SLO (Service Level Objective)"
           definition="A target level of service you commit to. Example: 99.9% uptime, or 95% of requests complete in under 200ms."
         />
+
+        <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 my-6">
+          <h3 className="text-lg font-semibold text-white mb-3">Quantifying SLIs</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-300">
+            <div className="bg-slate-900/60 border border-slate-700 rounded p-4">
+              <div className="font-semibold text-blue-300 mb-2">Availability</div>
+              <p>SLI formula: <span className="font-mono">(Total good requests) / (Total requests)</span>. Source metrics: HTTP status codes from API gateway.</p>
+            </div>
+            <div className="bg-slate-900/60 border border-slate-700 rounded p-4">
+              <div className="font-semibold text-blue-300 mb-2">Latency</div>
+                <p>Measure percentiles (p50, p95, p99). Use histogram buckets in Prometheus. Align with user-perceived thresholds (checkout {"<"} 1s).</p>
+            </div>
+            <div className="bg-slate-900/60 border border-slate-700 rounded p-4">
+              <div className="font-semibold text-blue-300 mb-2">Quality</div>
+              <p>Use business SLIs: successful orders / attempted orders, or pixel-perfect render rate for design system components.</p>
+            </div>
+            <div className="bg-slate-900/60 border border-slate-700 rounded p-4">
+              <div className="font-semibold text-blue-300 mb-2">Freshness</div>
+              <p>Contentful micro-frontends measure "time since last sync" for personalization data. High freshness drives conversion.</p>
+            </div>
+          </div>
+        </div>
 
         <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-6 mb-6">
           <h3 className="text-lg font-semibold text-blue-300 mb-4">SLO Examples for E-Commerce</h3>
@@ -210,6 +359,28 @@ export default function Module5() {
             </div>
           </div>
         </div>
+
+        <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-white mb-4">SLO Governance Loop</h3>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm text-slate-300">
+            <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
+              <div className="font-semibold text-blue-200 mb-2">1. Define</div>
+              <p>Co-create SLOs with product, engineering, and customer success. Document rationale and user journey impact.</p>
+            </div>
+            <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
+              <div className="font-semibold text-blue-200 mb-2">2. Measure</div>
+              <p>Automate SLI computation via Prometheus recording rules or Looker dashboards. Publish weekly scorecards.</p>
+            </div>
+            <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
+              <div className="font-semibold text-blue-200 mb-2">3. Decide</div>
+              <p>Use error budget burn rate to gate releases. If burn &gt; 2x steady state, freeze risky deployments and focus on reliability.</p>
+            </div>
+            <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
+              <div className="font-semibold text-blue-200 mb-2">4. Learn</div>
+              <p>Post-incident reviews feed reliability work into quarterly planning. Track reliability debt like product debt.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Lesson 4: Incident Response */}
@@ -217,7 +388,7 @@ export default function Module5() {
         <h2 className="text-2xl font-bold text-white mb-4">Lesson 4: Incident Response & Post-Mortems</h2>
 
         <p className="text-slate-300 text-lg leading-relaxed mb-6">
-          Things will break. The question is: how quickly can you detect, respond, and recover?
+          Things will break. The question is: how quickly can you detect, respond, and recover? Reliability is an organizational competency that blends human factors, automation, and psychological safety.
         </p>
 
         <div className="bg-red-900/30 border border-red-700/50 rounded-lg p-6 mb-6">
@@ -268,6 +439,126 @@ export default function Module5() {
               <p className="text-xs text-slate-400">Action items and improvements</p>
             </div>
           </div>
+        </div>
+
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-blue-200 mb-3">On-Call Readiness</h3>
+            <ul className="list-disc list-inside text-sm text-slate-300 space-y-2">
+              <li>Shadowing program: new engineers shadow two incidents before taking primary on-call.</li>
+              <li>Game days: quarterly chaos drills validate runbooks and communication channels.</li>
+                <li>Pager fatigue guardrails: limit overnight pages to {"<"} 2/week per engineer, rotate supporting staff.</li>
+            </ul>
+          </div>
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-green-200 mb-3">Blameless Culture Checklist</h3>
+            <ul className="list-disc list-inside text-sm text-slate-300 space-y-2">
+              <li>Focus on systemic causes (tooling, process, clarity) rather than the individual who triggered the failure.</li>
+              <li>Document hypotheses, not assumptions. Capture what responders believed to be true during the incident.</li>
+              <li>Assign action items with owners and due dates; follow up in operations review meetings.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Lesson 5: Platform Engineering & Governance */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-white mb-4">Lesson 5: Platform Engineering & Change Management</h2>
+
+        <p className="text-slate-300 text-lg leading-relaxed mb-6">
+          Micro-frontends without a strong platform are just distributed headaches. Platform engineering creates paved roads that balance autonomy with guardrails. The goal is to reduce <span className="font-semibold text-indigo-200">cognitive load</span> so that product teams can focus on user value instead of infrastructure trivia.
+        </p>
+
+        <div className="bg-indigo-900/30 border border-indigo-700/50 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-semibold text-indigo-200 mb-4">Platform Capabilities Checklist</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-300">
+            <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
+              <h4 className="font-semibold text-indigo-200 mb-2">Golden Paths</h4>
+              <p>Opinionated templates for new micro-frontends (CI/CD pipeline, observability config, design system setup). Generated via <span className="font-mono">pnpm create mfe</span>.</p>
+            </div>
+            <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
+              <h4 className="font-semibold text-indigo-200 mb-2">Internal Developer Portal</h4>
+              <p>Catalog of services, owners, SLOs, runbooks, and recent deployments. Backstage, Cortex, or custom dashboards work well.</p>
+            </div>
+            <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
+              <h4 className="font-semibold text-indigo-200 mb-2">Continuous Verification</h4>
+              <p>Automated smoke tests and canary analysis detect regressions before full rollout. Integrate feature flags with observability to rollback automatically.</p>
+            </div>
+            <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
+              <h4 className="font-semibold text-indigo-200 mb-2">Change Management</h4>
+              <p>RFC process with template: context, proposal, alternatives, blast radius, rollout plan. Decisions archived for future teams.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-white mb-4">Balancing Autonomy & Compliance</h3>
+          <div className="space-y-4 text-slate-300 text-sm">
+            <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
+              <h4 className="font-semibold text-indigo-200 mb-2">Guardrails</h4>
+              <p>Policy-as-code (OPA, Conftest) enforces security baselines (dependency scanning, TLS, PII handling). Violations block merges until remediated.</p>
+            </div>
+            <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
+              <h4 className="font-semibold text-indigo-200 mb-2">Feedback Loops</h4>
+              <p>Monthly platform council reviews adoption metrics, developer satisfaction surveys, and backlog priorities.</p>
+            </div>
+            <div className="bg-slate-900/60 border border-slate-800 rounded p-4">
+              <h4 className="font-semibold text-indigo-200 mb-2">Knowledge Sharing</h4>
+              <p>Brown-bag sessions, architecture decision records (ADRs), and internal conferences keep institutional knowledge from siloing.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Deep Dive Concept Pages */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold text-white mb-6">📚 Deep Dive into Core Concepts</h2>
+        <p className="text-slate-300 text-lg leading-relaxed mb-6">
+          Ready to study the socio-technical foundations behind this module? Each concept below explores the university-level theory and applied practices that support resilient teams and operations.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          <Link href="/concepts/team-topologies">
+            <div className="bg-gradient-to-br from-indigo-900/40 to-indigo-800/20 hover:from-indigo-900/60 hover:to-indigo-800/40 border border-indigo-700/50 p-4 rounded-lg cursor-pointer transition duration-300">
+              <h4 className="font-semibold text-indigo-200 mb-2 text-lg">→ Team Topologies</h4>
+              <p className="text-slate-400 text-sm">Explore stream-aligned, enabling, platform, and complicated-subsystem teams with case studies and communication patterns.</p>
+            </div>
+          </Link>
+          <Link href="/concepts/platform-engineering">
+            <div className="bg-gradient-to-br from-blue-900/40 to-blue-800/20 hover:from-blue-900/60 hover:to-blue-800/40 border border-blue-700/50 p-4 rounded-lg cursor-pointer transition duration-300">
+              <h4 className="font-semibold text-blue-200 mb-2 text-lg">→ Platform Engineering</h4>
+              <p className="text-slate-400 text-sm">Understand how internal platforms create paved roads, golden paths, and self-service governance.</p>
+            </div>
+          </Link>
+          <Link href="/concepts/observability">
+            <div className="bg-gradient-to-br from-purple-900/40 to-purple-800/20 hover:from-purple-900/60 hover:to-purple-800/40 border border-purple-700/50 p-4 rounded-lg cursor-pointer transition duration-300">
+              <h4 className="font-semibold text-purple-200 mb-2 text-lg">→ Observability Engineering</h4>
+              <p className="text-slate-400 text-sm">Dive into telemetry pipelines, signal-to-noise ratios, and distributed tracing analysis techniques.</p>
+            </div>
+          </Link>
+          <Link href="/concepts/service-level-objectives">
+            <div className="bg-gradient-to-br from-emerald-900/40 to-emerald-800/20 hover:from-emerald-900/60 hover:to-emerald-800/40 border border-emerald-700/50 p-4 rounded-lg cursor-pointer transition duration-300">
+              <h4 className="font-semibold text-emerald-200 mb-2 text-lg">→ Service Level Objectives</h4>
+              <p className="text-slate-400 text-sm">Statistical rigor for SLIs, budget burn alerts, and multi-dimensional SLO hierarchies.</p>
+            </div>
+          </Link>
+          <Link href="/concepts/error-budgets">
+            <div className="bg-gradient-to-br from-amber-900/40 to-amber-800/20 hover:from-amber-900/60 hover:to-amber-800/40 border border-amber-700/50 p-4 rounded-lg cursor-pointer transition duration-300">
+              <h4 className="font-semibold text-amber-200 mb-2 text-lg">→ Error Budgets</h4>
+              <p className="text-slate-400 text-sm">Link product velocity to reliability risk using burn-rate models and governance playbooks.</p>
+            </div>
+          </Link>
+          <Link href="/concepts/incident-response">
+            <div className="bg-gradient-to-br from-rose-900/40 to-rose-800/20 hover:from-rose-900/60 hover:to-rose-800/40 border border-rose-700/50 p-4 rounded-lg cursor-pointer transition duration-300">
+              <h4 className="font-semibold text-rose-200 mb-2 text-lg">→ Incident Response</h4>
+              <p className="text-slate-400 text-sm">Study incident command systems, communication archetypes, and resilience engineering research.</p>
+            </div>
+          </Link>
+          <Link href="/concepts/developer-experience">
+            <div className="bg-gradient-to-br from-cyan-900/40 to-cyan-800/20 hover:from-cyan-900/60 hover:to-cyan-800/40 border border-cyan-700/50 p-4 rounded-lg cursor-pointer transition duration-300">
+              <h4 className="font-semibold text-cyan-200 mb-2 text-lg">→ Developer Experience</h4>
+              <p className="text-slate-400 text-sm">Metrics, internal product management, and UX research techniques for engineering tooling.</p>
+            </div>
+          </Link>
         </div>
       </section>
 

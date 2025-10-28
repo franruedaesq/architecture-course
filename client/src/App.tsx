@@ -30,6 +30,13 @@ const VirtualDOMConcept = lazy(() => import("./pages/concepts/VirtualDOM"));
 const StreamingRenderingConcept = lazy(() => import("./pages/concepts/StreamingRendering"));
 const ComponentCompositionConcept = lazy(() => import("./pages/concepts/ComponentComposition"));
 const PerformanceOptimizationConcept = lazy(() => import("./pages/concepts/PerformanceOptimization"));
+const TeamTopologiesConcept = lazy(() => import("./pages/concepts/TeamTopologies"));
+const PlatformEngineeringConcept = lazy(() => import("./pages/concepts/PlatformEngineering"));
+const ObservabilityConcept = lazy(() => import("./pages/concepts/Observability"));
+const ServiceLevelObjectivesConcept = lazy(() => import("./pages/concepts/ServiceLevelObjectives"));
+const ErrorBudgetsConcept = lazy(() => import("./pages/concepts/ErrorBudgets"));
+const IncidentResponseConcept = lazy(() => import("./pages/concepts/IncidentResponse"));
+const DeveloperExperienceConcept = lazy(() => import("./pages/concepts/DeveloperExperience"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 
 interface RouteConfig {
@@ -64,6 +71,16 @@ const conceptRoutes: RouteConfig[] = [
   { path: "/concepts/streaming-rendering", component: StreamingRenderingConcept },
   { path: "/concepts/component-composition", component: ComponentCompositionConcept },
   { path: "/concepts/performance-optimization", component: PerformanceOptimizationConcept },
+  { path: "/concepts/team-topologies", component: TeamTopologiesConcept },
+  { path: "/concepts/platform-engineering", component: PlatformEngineeringConcept },
+  { path: "/concepts/observability", component: ObservabilityConcept },
+  {
+    path: "/concepts/service-level-objectives",
+    component: ServiceLevelObjectivesConcept,
+  },
+  { path: "/concepts/error-budgets", component: ErrorBudgetsConcept },
+  { path: "/concepts/incident-response", component: IncidentResponseConcept },
+  { path: "/concepts/developer-experience", component: DeveloperExperienceConcept },
 ];
 
 function Router() {
