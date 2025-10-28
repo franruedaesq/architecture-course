@@ -1,50 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
-import { BookOpen, Code2, Zap, Users, Layers, BarChart3 } from "lucide-react";
-
-const modules = [
-  {
-    id: 1,
-    title: "The Backend Divide",
-    subtitle: "Microservices & BFF",
-    description: "Understand why we broke the monolith into microservices and how the BFF acts as the perfect mediator.",
-    icon: Layers,
-    color: "from-blue-500 to-cyan-500",
-  },
-  {
-    id: 2,
-    title: "The Frontend Fragmentation",
-    subtitle: "Micro-Frontends & SSR/Hydration",
-    description: "Explore how the frontend mirrors the backend architecture and the weird trade-offs of server-side rendering.",
-    icon: Code2,
-    color: "from-purple-500 to-pink-500",
-  },
-  {
-    id: 3,
-    title: "Measuring Success",
-    subtitle: "Performance & SEO",
-    description: "Deep dive into Core Web Vitals, Technical SEO, and the metrics that matter for modern web applications.",
-    icon: BarChart3,
-    color: "from-orange-500 to-red-500",
-  },
-  {
-    id: 4,
-    title: "The Implementation Playbook",
-    subtitle: "Migration & Code-Splitting",
-    description: "Learn the Strangler Fig Pattern, Module Federation, and how to compose the pieces together.",
-    icon: Zap,
-    color: "from-green-500 to-emerald-500",
-  },
-  {
-    id: 5,
-    title: "The Human Element",
-    subtitle: "Team & Process",
-    description: "Discover how to maintain developer experience, consistency, and quality in a complex architecture.",
-    icon: Users,
-    color: "from-indigo-500 to-blue-500",
-  },
-];
+import { BookOpen } from "lucide-react";
+import { modules } from "@shared/courseContent";
 
 export default function Home() {
   return (
@@ -97,7 +55,7 @@ export default function Home() {
             {modules.map((module) => {
               const IconComponent = module.icon;
               return (
-                <Link key={module.id} href={`/module/${module.id}`}>
+                <Link key={module.id} href={module.path}>
                   <a className="group">
                     <Card className="h-full bg-slate-800/50 border-slate-700 hover:border-slate-600 transition-all duration-300 hover:shadow-lg hover:shadow-slate-900/50 cursor-pointer">
                       <CardHeader>

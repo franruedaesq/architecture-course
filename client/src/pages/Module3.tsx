@@ -8,14 +8,7 @@ import WebVitalsComparison from "@/components/WebVitalsComparison";
 
 export default function Module3() {
   return (
-    <ModuleLayout
-      moduleNumber={3}
-      title="Measuring Success"
-      subtitle="Web Performance & Technical SEO"
-      description="Deep dive into Core Web Vitals, the metrics that matter, and how architecture decisions impact performance."
-      previousModule={2}
-      nextModule={4}
-    >
+    <ModuleLayout moduleId={3}>
       {/* Lesson 1: Core Web Vitals */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-white mb-4">Lesson 1: Core Web Vitals - The Holy Trinity</h2>

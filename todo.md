@@ -113,32 +113,11 @@
 
 
 
-## Module 1 Deep-Dive Concept Pages (University Level)
-- [ ] Create ConceptPage component for consistent styling
-- [ ] Create /concepts/microservices page (what, solves, architecture, pros/cons, challenges)
-- [ ] Create /concepts/service-boundaries page (domain boundaries, bounded contexts, design)
-- [ ] Create /concepts/domain-driven-design page (DDD principles, ubiquitous language, aggregates)
-- [ ] Create /concepts/cap-theorem page (consistency, availability, partition tolerance, trade-offs)
-- [ ] Create /concepts/service-communication page (synchronous, asynchronous, patterns)
-- [ ] Create /concepts/advanced-communication page (event-driven, saga pattern, choreography)
-- [ ] Create /concepts/backend-for-frontend page (BFF pattern, aggregation, composition)
-- [ ] Create /concepts/service-discovery page (registration, health checks, load balancing)
-- [ ] Create /concepts/circuit-breaker page (failure handling, fallbacks, resilience)
-- [ ] Update Module 1 to add links to concept pages
-- [ ] Add navigation between concept pages
-- [ ] Add visual diagrams for each concept
-
-
-## Module 1 Deep-Dive Concept Pages (University Level)
-- [x] Create ConceptPage component for consistent styling
-- [x] Create /concepts/microservices page
-- [x] Create /concepts/service-boundaries page
-- [x] Create /concepts/domain-driven-design page
-- [ ] Create /concepts/cap-theorem page
-- [ ] Create /concepts/service-communication page
-- [ ] Create /concepts/advanced-communication page
-- [ ] Create /concepts/backend-for-frontend page
-- [ ] Create /concepts/service-discovery page
-- [ ] Create /concepts/circuit-breaker page
-- [ ] Update Module 1 to add links to concept pages
-- [ ] Add navigation between concept pages
+## Roadmap Refresh
+- [x] Deep-dive concept pages for Modules 1 and 2 (with navigation + cross-linking)
+- [x] Consistent ConceptPage layout across lessons
+- [ ] Add visual diagrams or downloadable assets for each concept page
+- [ ] Curate references and further reading per module
+- [ ] Expand interactive code examples beyond existing modules
+- [ ] Add quiz/assessment sections for knowledge checks
+- [ ] Aggregate external resource links and tooling references

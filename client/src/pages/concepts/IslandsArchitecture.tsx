@@ -1,14 +1,18 @@
 import ConceptPage from "@/components/ConceptPage";
 import BigWordAlert from "@/components/BigWordAlert";
+import { getConceptPageMetadata } from "@shared/courseContent";
 
 export default function IslandsArchitectureConcept() {
+  const { title, subtitle, backToModule, previousConcept, nextConcept } =
+    getConceptPageMetadata("islands-architecture");
+
   return (
     <ConceptPage
-      title="Islands Architecture"
-      subtitle="A modern approach to web architecture combining static HTML with interactive components"
-      previousConcept={{ path: "/concepts/hydration", label: "Hydration" }}
-      nextConcept={{ path: "/concepts/virtual-dom", label: "Virtual DOM" }}
-      backToModule={{ path: "/module/2", label: "Module 2: The Frontend Fragmentation" }}
+      title={title}
+      subtitle={subtitle}
+      previousConcept={previousConcept}
+      nextConcept={nextConcept}
+      backToModule={backToModule}
     >
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-white mb-6">What is Islands Architecture?</h2>

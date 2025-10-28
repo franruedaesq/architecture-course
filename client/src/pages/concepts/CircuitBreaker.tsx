@@ -1,14 +1,18 @@
 import ConceptPage from "@/components/ConceptPage";
 import BigWordAlert from "@/components/BigWordAlert";
+import { getConceptPageMetadata } from "@shared/courseContent";
 
 export default function CircuitBreakerConcept() {
+  const { title, subtitle, backToModule, previousConcept, nextConcept } =
+    getConceptPageMetadata("circuit-breaker");
+
   return (
     <ConceptPage
-      title="Circuit Breaker Pattern"
-      subtitle="Preventing cascading failures in distributed systems"
-      previousConcept={{ path: "/concepts/service-discovery", label: "Service Discovery" }}
-      nextConcept={{ path: "/module/1", label: "Back to Module 1" }}
-      backToModule={{ path: "/module/1", label: "Module 1: The Backend Divide" }}
+      title={title}
+      subtitle={subtitle}
+      previousConcept={previousConcept}
+      nextConcept={nextConcept}
+      backToModule={backToModule}
     >
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-white mb-6">The Cascading Failure Problem</h2>

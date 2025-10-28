@@ -7,14 +7,7 @@ import BigWordAlert from "@/components/BigWordAlert";
 
 export default function Module5() {
   return (
-    <ModuleLayout
-      moduleNumber={5}
-      title="The Human Element"
-      subtitle="Team Structure, Monitoring & Process"
-      description="Learn how to organize teams, monitor distributed systems, and maintain quality at scale."
-      previousModule={4}
-      nextModule={null}
-    >
+    <ModuleLayout moduleId={5}>
       {/* Lesson 1: Team Organization */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-white mb-4">Lesson 1: Team Organization & Conway's Law</h2>

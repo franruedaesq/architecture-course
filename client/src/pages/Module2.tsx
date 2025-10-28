@@ -8,14 +8,7 @@ import HydrationTimeline from "@/components/HydrationTimeline";
 
 export default function Module2() {
   return (
-    <ModuleLayout
-      moduleNumber={2}
-      title="The Frontend Fragmentation"
-      subtitle="Micro-Frontends & Server-Side Rendering"
-      description="Explore how the frontend mirrors the backend architecture and the weird trade-offs of server-side rendering and hydration."
-      previousModule={1}
-      nextModule={3}
-    >
+    <ModuleLayout moduleId={2}>
       {/* Lesson 1: Micro-Frontends */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-white mb-4">Lesson 1: Micro-Frontends - The UI Mirror</h2>

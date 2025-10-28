@@ -1,14 +1,18 @@
 import ConceptPage from "@/components/ConceptPage";
 import BigWordAlert from "@/components/BigWordAlert";
+import { getConceptPageMetadata } from "@shared/courseContent";
 
 export default function VirtualDOMConcept() {
+  const { title, subtitle, backToModule, previousConcept, nextConcept } =
+    getConceptPageMetadata("virtual-dom");
+
   return (
     <ConceptPage
-      title="Virtual DOM"
-      subtitle="React's in-memory representation of the DOM and how it optimizes updates"
-      previousConcept={{ path: "/concepts/islands-architecture", label: "Islands Architecture" }}
-      nextConcept={{ path: "/concepts/streaming-rendering", label: "Streaming Rendering" }}
-      backToModule={{ path: "/module/2", label: "Module 2: The Frontend Fragmentation" }}
+      title={title}
+      subtitle={subtitle}
+      previousConcept={previousConcept}
+      nextConcept={nextConcept}
+      backToModule={backToModule}
     >
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-white mb-6">What is the Virtual DOM?</h2>

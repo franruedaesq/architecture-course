@@ -1,14 +1,18 @@
 import ConceptPage from "@/components/ConceptPage";
 import BigWordAlert from "@/components/BigWordAlert";
+import { getConceptPageMetadata } from "@shared/courseContent";
 
 export default function ServiceDiscoveryConcept() {
+  const { title, subtitle, backToModule, previousConcept, nextConcept } =
+    getConceptPageMetadata("service-discovery");
+
   return (
     <ConceptPage
-      title="Service Discovery"
-      subtitle="How services find and communicate with each other in dynamic environments"
-      previousConcept={{ path: "/concepts/backend-for-frontend", label: "Backend for Frontend" }}
-      nextConcept={{ path: "/concepts/circuit-breaker", label: "Circuit Breaker" }}
-      backToModule={{ path: "/module/1", label: "Module 1: The Backend Divide" }}
+      title={title}
+      subtitle={subtitle}
+      previousConcept={previousConcept}
+      nextConcept={nextConcept}
+      backToModule={backToModule}
     >
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-white mb-6">The Service Discovery Problem</h2>

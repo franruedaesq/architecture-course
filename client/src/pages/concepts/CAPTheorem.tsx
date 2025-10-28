@@ -1,14 +1,18 @@
 import ConceptPage from "@/components/ConceptPage";
 import BigWordAlert from "@/components/BigWordAlert";
+import { getConceptPageMetadata } from "@shared/courseContent";
 
 export default function CAPTheoremConcept() {
+  const { title, subtitle, backToModule, previousConcept, nextConcept } =
+    getConceptPageMetadata("cap-theorem");
+
   return (
     <ConceptPage
-      title="The CAP Theorem"
-      subtitle="Understanding the fundamental trade-offs in distributed systems"
-      previousConcept={{ path: "/concepts/domain-driven-design", label: "Domain-Driven Design" }}
-      nextConcept={{ path: "/concepts/service-communication", label: "Service Communication" }}
-      backToModule={{ path: "/module/1", label: "Module 1: The Backend Divide" }}
+      title={title}
+      subtitle={subtitle}
+      previousConcept={previousConcept}
+      nextConcept={nextConcept}
+      backToModule={backToModule}
     >
       <section className="mb-12">
         <h2 className="text-3xl font-bold text-white mb-6">What is the CAP Theorem?</h2>

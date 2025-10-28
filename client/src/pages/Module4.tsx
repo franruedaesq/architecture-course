@@ -8,14 +8,7 @@ import CodeSplittingVisualization from "@/components/CodeSplittingVisualization"
 
 export default function Module4() {
   return (
-    <ModuleLayout
-      moduleNumber={4}
-      title="The Implementation Playbook"
-      subtitle="Code-Splitting, Module Federation & Composition"
-      description="Learn the technical patterns to implement micro-frontends at scale, from bundling strategies to composition patterns."
-      previousModule={3}
-      nextModule={5}
-    >
+    <ModuleLayout moduleId={4}>
       {/* Lesson 1: Code-Splitting */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-white mb-4">Lesson 1: Code-Splitting - Breaking Up the Bundle</h2>

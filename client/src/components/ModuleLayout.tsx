@@ -2,26 +2,19 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ChevronLeft, ChevronRight, Home } from "lucide-react";
 import { ReactNode } from "react";
+import { getModuleIndex, getModuleMeta, modules, totalModules } from "@shared/courseContent";
 
 interface ModuleLayoutProps {
-  moduleNumber: number;
-  title: string;
-  subtitle: string;
-  description: string;
-  previousModule: number | null;
-  nextModule: number | null;
+  moduleId: number;
   children: ReactNode;
 }
 
-export default function ModuleLayout({
-  moduleNumber,
-  title,
-  subtitle,
-  description,
-  previousModule,
-  nextModule,
-  children,
-}: ModuleLayoutProps) {
+export default function ModuleLayout({ moduleId, children }: ModuleLayoutProps) {
+  const moduleMeta = getModuleMeta(moduleId);
+  const moduleIndex = getModuleIndex(moduleId);
+  const previousModule = modules[moduleIndex - 1];
+  const nextModule = modules[moduleIndex + 1];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Header */}
@@ -36,11 +29,13 @@ export default function ModuleLayout({
                 </Button>
               </a>
             </Link>
-            <div className="text-sm font-semibold text-blue-400">Module {moduleNumber} of 5</div>
+            <div className="text-sm font-semibold text-blue-400">
+              Module {moduleMeta.id} of {totalModules}
+            </div>
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">{title}</h1>
-          <p className="text-blue-400 font-semibold mb-2">{subtitle}</p>
-          <p className="text-slate-300">{description}</p>
+          <h1 className="text-3xl font-bold text-white mb-2">{moduleMeta.title}</h1>
+          <p className="text-blue-400 font-semibold mb-2">{moduleMeta.subtitle}</p>
+          <p className="text-slate-300">{moduleMeta.description}</p>
         </div>
       </header>
 
@@ -48,7 +43,7 @@ export default function ModuleLayout({
       <div className="bg-slate-800/30 h-1">
         <div
           className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300"
-          style={{ width: `${(moduleNumber / 5) * 100}%` }}
+          style={{ width: `${((moduleIndex + 1) / totalModules) * 100}%` }}
         ></div>
       </div>
 
@@ -62,7 +57,7 @@ export default function ModuleLayout({
         <div className="container max-w-4xl mx-auto px-4 py-8">
           <div className="flex justify-between items-center">
             {previousModule ? (
-              <Link href={`/module/${previousModule}`}>
+              <Link href={previousModule.path}>
                 <a>
                   <Button variant="outline" className="border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800">
                     <ChevronLeft className="w-4 h-4 mr-2" />
@@ -83,7 +78,7 @@ export default function ModuleLayout({
             </Link>
 
             {nextModule ? (
-              <Link href={`/module/${nextModule}`}>
+              <Link href={nextModule.path}>
                 <a>
                   <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0">
                     Next Module <ChevronRight className="w-4 h-4 ml-2" />

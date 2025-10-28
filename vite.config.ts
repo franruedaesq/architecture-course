@@ -1,7 +1,6 @@
 import { jsxLocPlugin } from "@builder.io/vite-plugin-jsx-loc";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
-import fs from "node:fs";
 import path from "path";
 import { defineConfig } from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
@@ -40,5 +39,14 @@ export default defineConfig({
       strict: true,
       deny: ["**/.*"],
     },
+  },
+  test: {
+    globals: true,
+    environment: "node",
+    setupFiles: path.resolve(import.meta.dirname, "client/src/test/setup.ts"),
+    include: [
+      "src/**/*.{test,spec}.{ts,tsx}",
+      "../shared/**/*.{test,spec}.{ts,tsx}",
+    ],
   },
 });
