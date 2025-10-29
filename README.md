@@ -1,19 +1,19 @@
 # Architecture Course
 
 ## Overview
-**Architecture Course** ("Understanding the Weird Parts") is an interactive curriculum that breaks down modern web architecture from both the frontend and backend perspectives. The home page introduces the dark-themed learning environment, outlines the five-module program, and invites learners to explore hands-on diagrams, timelines, and concept deep dives focused on the motivations behind architectural decisions.【F:client/src/pages/Home.tsx†L15-L47】
+**Architecture Course** ("Understanding the Weird Parts") is an interactive curriculum that breaks down modern web architecture from both the frontend and backend perspectives. The home page introduces the dark-themed learning environment, outlines the five-module program, and invites learners to explore hands-on diagrams, timelines, and concept deep dives focused on the motivations behind architectural decisions.
 
 ## Key features
 - **Five in-depth learning modules with 25+ concepts.** Shared metadata powers navigation across modules that cover microservices, micro-frontends, performance, implementation strategies, and team processes.【F:shared/courseContent.ts†L20-L109】
-- **Consistent module layout with progress tracking.** Each module page inherits a layout that surfaces module context, renders a progress bar, and offers previous/next navigation to keep learners oriented throughout the course.【F:client/src/components/ModuleLayout.tsx†L12-L95】
-- **Interactive visualizations for complex topics.** Learners explore an interactive microservices/BFF flow diagram, hydration timeline, code-splitting bundle comparison, and Core Web Vitals dashboard to connect theory with real-world trade-offs.【F:client/src/components/ArchitectureDiagram.tsx†L4-L154】【F:client/src/components/HydrationTimeline.tsx†L4-L142】【F:client/src/components/CodeSplittingVisualization.tsx†L4-L188】【F:client/src/components/WebVitalsComparison.tsx†L4-L127】
-- **Rich concept navigation.** Dedicated concept pages reuse a common template with module back-links and sequential navigation for deep dives on topics like DDD, CAP theorem, and progressive hydration.【F:client/src/components/ConceptPage.tsx†L1-L73】
-- **Shared content with automated tests.** Module and concept metadata lives in a shared package with Vitest coverage to guard navigation integrity and labeling consistency.【F:shared/courseContent.ts†L20-L158】【F:shared/__tests__/courseContent.test.ts†L1-L20】
+- **Consistent module layout with progress tracking.** Each module page inherits a layout that surfaces module context, renders a progress bar, and offers previous/next navigation to keep learners oriented throughout the course.
+- **Interactive visualizations for complex topics.** Learners explore an interactive microservices/BFF flow diagram, hydration timeline, code-splitting bundle comparison, and Core Web Vitals dashboard to connect theory with real-world trade-offs.
+- **Rich concept navigation.** Dedicated concept pages reuse a common template with module back-links and sequential navigation for deep dives on topics like DDD, CAP theorem, and progressive hydration.
+- **Shared content with automated tests.** Module and concept metadata lives in a shared package with Vitest coverage to guard navigation integrity and labeling consistency.
 
 ## Tech stack
-- **React + TypeScript** front-end bundled by Vite with Tailwind CSS utilities and a rich Radix UI component suite.【F:package.json†L6-L90】【F:vite.config.ts†L1-L41】
-- **Express server** that serves the statically built Vite assets and supports client-side routing in production.【F:server/index.ts†L1-L33】
-- **pnpm workspace tooling** with scripts for development, builds, formatting, linting, and automated tests.【F:package.json†L6-L15】【F:package.json†L92-L99】
+- **React + TypeScript** front-end bundled by Vite with Tailwind CSS utilities and a rich Radix UI component suite.
+- **Express server** that serves the statically built Vite assets and supports client-side routing in production.
+- **pnpm workspace tooling** with scripts for development, builds, formatting, linting, and automated tests.
 
 ## Getting started
 1. **Install dependencies**
