@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const vitals = [
@@ -34,8 +34,13 @@ const vitals = [
   },
 ];
 
+const vitalMap = new Map(vitals.map(vital => [vital.id, vital] as const));
+
 export default function WebVitalsComparison() {
   const [selectedVital, setSelectedVital] = useState<string>("lcp");
+  const activeVital = useMemo(() => {
+    return vitalMap.get(selectedVital) ?? vitals[0];
+  }, [selectedVital]);
 
   return (
     <div className="space-y-6">
@@ -61,31 +66,27 @@ export default function WebVitalsComparison() {
       </div>
 
       {/* Details */}
-      {selectedVital && (
+      {activeVital && (
         <Card className="bg-slate-800/50 border-slate-700 animate-in fade-in">
           <CardHeader>
             <CardTitle className="text-white">
-              {vitals.find((v) => v.id === selectedVital)?.fullName}
+              {activeVital.fullName}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <p className="text-slate-300 mb-3">
-                {vitals.find((v) => v.id === selectedVital)?.description}
-              </p>
+              <p className="text-slate-300 mb-3">{activeVital.description}</p>
             </div>
 
             <div className="bg-slate-700/50 p-4 rounded-lg">
               <div className="text-sm font-semibold text-slate-300 mb-2">How Our Architecture Impacts It:</div>
               <p className="text-slate-300">
-                <span className="font-semibold">{vitals.find((v) => v.id === selectedVital)?.impact}</span>
+                <span className="font-semibold">{activeVital.impact}</span>
               </p>
-              <p className="text-slate-400 text-sm mt-2">
-                {vitals.find((v) => v.id === selectedVital)?.detail}
-              </p>
+              <p className="text-slate-400 text-sm mt-2">{activeVital.detail}</p>
             </div>
 
-            {selectedVital === "lcp" && (
+            {activeVital.id === "lcp" && (
               <div className="bg-green-900/30 border border-green-700/50 rounded-lg p-4">
                 <h4 className="font-semibold text-green-300 mb-2">How to Improve LCP</h4>
                 <ul className="space-y-2 text-slate-300 text-sm">
@@ -97,7 +98,7 @@ export default function WebVitalsComparison() {
               </div>
             )}
 
-            {selectedVital === "fid" && (
+            {activeVital.id === "fid" && (
               <div className="bg-red-900/30 border border-red-700/50 rounded-lg p-4">
                 <h4 className="font-semibold text-red-300 mb-2">How to Improve FID/INP</h4>
                 <ul className="space-y-2 text-slate-300 text-sm">
@@ -109,7 +110,7 @@ export default function WebVitalsComparison() {
               </div>
             )}
 
-            {selectedVital === "cls" && (
+            {activeVital.id === "cls" && (
               <div className="bg-yellow-900/30 border border-yellow-700/50 rounded-lg p-4">
                 <h4 className="font-semibold text-yellow-300 mb-2">How to Improve CLS</h4>
                 <ul className="space-y-2 text-slate-300 text-sm">
