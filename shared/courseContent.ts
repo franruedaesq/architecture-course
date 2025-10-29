@@ -72,8 +72,16 @@ export const modules: ModuleMeta[] = [
 
 export const totalModules = modules.length;
 
+const moduleMetaById = new Map<number, ModuleMeta>();
+const moduleIndexById = new Map<number, number>();
+
+modules.forEach((module, index) => {
+  moduleMetaById.set(module.id, module);
+  moduleIndexById.set(module.id, index);
+});
+
 export function getModuleMeta(id: number): ModuleMeta {
-  const meta = modules.find(module => module.id === id);
+  const meta = moduleMetaById.get(id);
   if (!meta) {
     throw new Error(`Unknown module id: ${id}`);
   }
@@ -81,8 +89,8 @@ export function getModuleMeta(id: number): ModuleMeta {
 }
 
 export function getModuleIndex(id: number): number {
-  const index = modules.findIndex(module => module.id === id);
-  if (index === -1) {
+  const index = moduleIndexById.get(id);
+  if (index === undefined) {
     throw new Error(`Unknown module id: ${id}`);
   }
   return index;
@@ -361,6 +369,11 @@ const conceptEntries: ConceptMeta[] = [
 ];
 
 const conceptMap = new Map(conceptEntries.map(concept => [concept.slug, concept]));
+
+export const conceptRouteSpecs = conceptEntries.map(({ slug, path }) => ({
+  slug,
+  path,
+}));
 
 function toNavLink(spec: ConceptNavSpec | undefined): NavLink | undefined {
   if (!spec) {

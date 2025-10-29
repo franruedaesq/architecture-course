@@ -1,7 +1,8 @@
+import { BookOpen } from "lucide-react";
+import { Link } from "wouter";
+import { prefetchRoute } from "@/routes";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Link } from "wouter";
-import { BookOpen } from "lucide-react";
 import { modules } from "@shared/courseContent";
 
 export default function Home() {
@@ -56,7 +57,11 @@ export default function Home() {
               const IconComponent = module.icon;
               return (
                 <Link key={module.id} href={module.path}>
-                  <a className="group">
+                  <a
+                    className="group"
+                    onFocus={() => prefetchRoute(module.path)}
+                    onMouseEnter={() => prefetchRoute(module.path)}
+                  >
                     <Card className="h-full bg-slate-800/50 border-slate-700 hover:border-slate-600 transition-all duration-300 hover:shadow-lg hover:shadow-slate-900/50 cursor-pointer">
                       <CardHeader>
                         <div className={`inline-flex w-12 h-12 rounded-lg bg-gradient-to-br ${module.color} items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
@@ -83,7 +88,7 @@ export default function Home() {
         <section className="mt-16 text-center">
           <p className="text-slate-400 mb-6">Ready to understand the weird parts? Start with Module 1.</p>
           <Link href="/module/1">
-            <a>
+            <a onFocus={() => prefetchRoute("/module/1")} onMouseEnter={() => prefetchRoute("/module/1")}> 
               <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 px-8 py-6 text-lg">
                 Start Learning
               </Button>

@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "wouter";
+import { prefetchRoute } from "@/routes";
 import { Button } from "@/components/ui/button";
 
 interface ConceptPageProps {
@@ -36,7 +37,11 @@ export default function ConceptPage({
           <div className="flex items-center gap-2 mb-3">
             {backToModule && (
               <Link href={backToModule.path}>
-                <a className="text-blue-400 hover:text-blue-300 text-sm flex items-center gap-1">
+                <a
+                  className="text-blue-400 hover:text-blue-300 text-sm flex items-center gap-1"
+                  onFocus={() => prefetchRoute(backToModule.path)}
+                  onMouseEnter={() => prefetchRoute(backToModule.path)}
+                >
                   <ChevronLeft className="w-4 h-4" />
                   {backToModule.label}
                 </a>
@@ -60,7 +65,10 @@ export default function ConceptPage({
         <div className="flex justify-between items-center">
           {previousConcept ? (
             <Link href={previousConcept.path}>
-              <a>
+              <a
+                onFocus={() => prefetchRoute(previousConcept.path)}
+                onMouseEnter={() => prefetchRoute(previousConcept.path)}
+              >
                 <Button
                   variant="outline"
                   className="border-slate-600 text-slate-300 hover:bg-slate-800"
@@ -76,7 +84,10 @@ export default function ConceptPage({
 
           {nextConcept ? (
             <Link href={nextConcept.path}>
-              <a>
+              <a
+                onFocus={() => prefetchRoute(nextConcept.path)}
+                onMouseEnter={() => prefetchRoute(nextConcept.path)}
+              >
                 <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0">
                   {nextConcept.label}
                   <ChevronRight className="w-4 h-4 ml-2" />
