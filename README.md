@@ -1,59 +1,141 @@
-# Architecture Course
+# Understanding the Weird Parts of Web Architecture
+
+**Live Demo:** [architecture-course-z1zl.vercel.app](https://architecture-course-z1zl.vercel.app/)
+
+---
 
 ## Overview
-**Architecture Course** ("Understanding the Weird Parts") is an interactive curriculum that breaks down modern web architecture from both the frontend and backend perspectives. The home page introduces the dark-themed learning environment, outlines the five-module program, and invites learners to explore hands-on diagrams, timelines, and concept deep dives focused on the motivations behind architectural decisions.
 
-## Key features
-- **Five in-depth learning modules with 25+ concepts.** Shared metadata powers navigation across modules that cover microservices, micro-frontends, performance, implementation strategies, and team processes.【F:shared/courseContent.ts†L20-L109】
-- **Consistent module layout with progress tracking.** Each module page inherits a layout that surfaces module context, renders a progress bar, and offers previous/next navigation to keep learners oriented throughout the course.
-- **Interactive visualizations for complex topics.** Learners explore an interactive microservices/BFF flow diagram, hydration timeline, code-splitting bundle comparison, and Core Web Vitals dashboard to connect theory with real-world trade-offs.
-- **Rich concept navigation.** Dedicated concept pages reuse a common template with module back-links and sequential navigation for deep dives on topics like DDD, CAP theorem, and progressive hydration.
-- **Shared content with automated tests.** Module and concept metadata lives in a shared package with Vitest coverage to guard navigation integrity and labeling consistency.
+**Architecture Course** — *“Understanding the Weird Parts”* — is an interactive learning platform that dissects modern web architecture from both the frontend and backend perspectives.
+It’s designed for developers who want to understand **why** architectural decisions exist — not just how to implement them.
 
-## Tech stack
-- **React + TypeScript** front-end bundled by Vite with Tailwind CSS utilities and a rich Radix UI component suite.
-- **Express server** that serves the statically built Vite assets and supports client-side routing in production.
-- **pnpm workspace tooling** with scripts for development, builds, formatting, linting, and automated tests.
+The homepage introduces a minimalist, dark-themed interface and guides learners through a five-module program exploring design trade-offs, scaling challenges, and performance considerations that shape today’s web systems.
 
-## Getting started
+---
+
+## Why this course?
+
+Most tutorials stop at *“here’s how to build it.”*
+This course asks: **why was it built this way in the first place?**
+
+Through hands-on diagrams, timelines, and interactive modules, you’ll discover:
+
+* Why microservices replaced monoliths
+* Why micro-frontends exist
+* Why hydration and code splitting matter
+* How architectural choices ripple through teams and user experience
+
+Each topic connects theoretical motivation with implementation consequences.
+
+---
+
+## Key Features
+
+* **Five detailed learning modules with 25+ interconnected concepts.**
+  Topics span microservices, micro-frontends, performance, implementation strategies, and team collaboration. Shared metadata powers dynamic navigation across modules.
+  *(See: `shared/courseContent.ts`)*
+
+* **Consistent layout and progress tracking.**
+  Every module inherits a unified structure with a progress bar, context hints, and sequential navigation.
+
+* **Interactive visualizations.**
+  Explore microservices flow diagrams, hydration timelines, bundle comparisons, and Core Web Vitals dashboards that make abstract ideas concrete.
+
+* **Reusable content with automated testing.**
+  Shared metadata lives in a single package with Vitest coverage to ensure integrity and labeling consistency.
+
+---
+
+## Tech Stack
+
+* **Frontend:** React + TypeScript + Vite + Tailwind CSS + Radix UI
+* **Backend:** Express server serving static Vite builds and handling client-side routing
+* **Tooling:** pnpm workspace with scripts for builds, formatting, linting, and testing
+* **Testing:** Vitest with global setup and coverage for both `client/` and `shared/`
+
+---
+
+## Getting Started
+
 1. **Install dependencies**
+
    ```bash
    pnpm install
    ```
+
 2. **Run the Vite development server**
+
    ```bash
    pnpm dev
    ```
+
 3. **Run automated tests**
+
    ```bash
    pnpm test
    ```
+
 4. **Create a production build**
+
    ```bash
    pnpm build
    ```
+
 5. **Serve the built app locally**
+
    ```bash
    pnpm start
    ```
 
-The build pipeline outputs static assets to `dist/public`, and the Express server bundles to `dist/index.js` for production startups.【F:vite.config.ts†L20-L52】【F:package.json†L8-L10】【F:server/index.ts†L13-L33】
+The build pipeline outputs static assets to `dist/public`, and the Express server compiles to `dist/index.js` for production.
 
-## Project structure
+---
+
+## Project Structure
+
 ```
 architecture-course/
-├── client/        # React application (pages, components, hooks)
-├── server/        # Express server entry point for production deploys
-├── shared/        # Course metadata shared between client and tests
-├── dist/          # Build output (created after `pnpm build`)
-└── vite.config.ts # Root Vite configuration
+├── client/        # React app (pages, components, hooks)
+├── server/        # Express server entry point
+├── shared/        # Shared course metadata
+├── dist/          # Production build output
+└── vite.config.ts # Root configuration
 ```
-The Vite configuration treats `client/` as the project root, exposes shared aliases, and emits assets for the server to serve after builds.【F:vite.config.ts†L14-L24】
 
-## Helpful scripts
-- `pnpm format` – format the codebase with Prettier.【F:package.json†L6-L13】
-- `pnpm check` – type-check the project with TypeScript.【F:package.json†L6-L12】
-- `pnpm preview` – preview the production build using Vite’s preview server.【F:package.json†L6-L11】
+`vite.config.ts` defines the `client/` directory as the root and manages aliases for shared imports.
+
+---
+
+## Helpful Scripts
+
+| Command        | Description                          |
+| -------------- | ------------------------------------ |
+| `pnpm format`  | Format the codebase with Prettier    |
+| `pnpm check`   | Type-check using TypeScript          |
+| `pnpm preview` | Preview the production build locally |
+
+---
 
 ## Testing
-Vitest is configured with global APIs and shared setup, enabling tests across both `client/` and `shared/` packages. Run the suite with `pnpm test` or `pnpm test:watch` for an interactive experience.【F:vite.config.ts†L43-L51】【F:package.json†L14-L15】
+
+Run the full Vitest suite:
+
+```bash
+pnpm test
+```
+
+For live re-runs:
+
+```bash
+pnpm test:watch
+```
+
+Tests validate shared content integrity and navigation consistency.
+
+---
+
+## Explore the Live Demo
+
+👉 **Try it now:** [architecture-course-z1zl.vercel.app](https://architecture-course-z1zl.vercel.app/)
+Experience how theory, visuals, and structure combine to explain the “weird parts” that make modern web architecture work.
+
