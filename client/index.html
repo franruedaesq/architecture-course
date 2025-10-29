@@ -6,8 +6,13 @@
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <link rel="icon" type="image/png" href="%VITE_APP_LOGO%" />
-    <link rel="apple-touch-icon" href="%VITE_APP_LOGO%" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://placehold.co/128x128/E1E7EF/1F2937?text=App" />
+    <link
+      rel="apple-touch-icon"
+      href="https://placehold.co/128x128/E1E7EF/1F2937?text=App" />
     <title>Understanding the Weird Parts of Web Architecture</title>
     <!-- Add Google Fonts here, example:
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,10 +24,26 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script
-      defer
-      src="%VITE_ANALYTICS_ENDPOINT%/umami"
-      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+    <script type="module">
+      const FALLBACK_LOGO = "https://placehold.co/128x128/E1E7EF/1F2937?text=App";
+      const iconTargets = document.querySelectorAll(
+        'link[rel="icon"], link[rel="apple-touch-icon"]'
+      );
+      const configuredLogo = import.meta.env.VITE_APP_LOGO || FALLBACK_LOGO;
+      iconTargets.forEach(link => link.setAttribute("href", configuredLogo));
+
+      const analyticsEndpoint = import.meta.env.VITE_ANALYTICS_ENDPOINT;
+      const analyticsWebsiteId = import.meta.env.VITE_ANALYTICS_WEBSITE_ID;
+
+      if (analyticsEndpoint && analyticsWebsiteId) {
+        const normalizedEndpoint = analyticsEndpoint.replace(/\/$/, "");
+        const script = document.createElement("script");
+        script.defer = true;
+        script.src = `${normalizedEndpoint}/umami`;
+        script.dataset.websiteId = analyticsWebsiteId;
+        document.body.appendChild(script);
+      }
+    </script>
   </body>
 
 </html>

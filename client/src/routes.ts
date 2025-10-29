@@ -48,17 +48,36 @@ const conceptImports = import.meta.glob<{ default: ComponentType<any> }>(
   "./pages/concepts/*.tsx"
 );
 
-const toPascalCase = (slug: string) =>
-  slug
-    .split("-")
-    .map(segment => segment.charAt(0).toUpperCase() + segment.slice(1))
-    .join("");
+const slugFromFilePath = (filePath: string) => {
+  const fileName = filePath.split("/").pop();
+  if (!fileName) return null;
+
+  const withoutExtension = fileName.replace(/\.tsx$/i, "");
+  const segments = withoutExtension.match(/[A-Z]+(?![a-z])|[A-Z][a-z]+|[0-9]+/g);
+
+  if (!segments || segments.length === 0) {
+    return null;
+  }
+
+  return segments.join("-").toLowerCase();
+};
+
+const conceptImporterBySlug = new Map<
+  string,
+  () => Promise<{ default: ComponentType<any> }>
+>();
+
+for (const [filePath, importer] of Object.entries(conceptImports)) {
+  const slug = slugFromFilePath(filePath);
+  if (slug) {
+    conceptImporterBySlug.set(slug, importer);
+  }
+}
 
 export const conceptRoutes: RouteConfig[] = conceptRouteSpecs.map(({ slug, path }) => {
-  const filePath = `./pages/concepts/${toPascalCase(slug)}.tsx`;
-  const importer = conceptImports[filePath];
+  const importer = conceptImporterBySlug.get(slug);
   if (!importer) {
-    throw new Error(`Missing concept page for ${filePath}`);
+    throw new Error(`Missing concept page for slug "${slug}"`);
   }
   const lazyComponent = lazyWithPreload(importer);
   routePreloaders.set(path, importer);
